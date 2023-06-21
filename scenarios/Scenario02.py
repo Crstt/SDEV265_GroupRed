@@ -1,4 +1,4 @@
-class Scenario01:
+class Scenario02:
     def __init__(self, gui):
         self.gui = gui
         self.description = "description"
@@ -7,7 +7,7 @@ class Scenario01:
     
     def run(self):
         print("Running scenario code...")
-        return 1
+        return 2
         # Implement the logic for the scenario here
     
     def openPopUp(self):
