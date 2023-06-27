@@ -1,6 +1,7 @@
 class Scenario02:
     def __init__(self, gui):
         self.gui = gui
+        self.name = "02"
         self.description = "description"
         self.choice = ["choice1", "choice 2"]
         self.choice = []
