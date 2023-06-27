@@ -55,7 +55,10 @@ class ScenarioManager:
     
     def callScenario(self, scenario):
         print(f"Calling scenario: {scenario.name}")
-        return scenario.run()
+        mod = scenario.run()
+        self.player.food += mod.food
+        self.player.money += mod.money
+        return mod
     
     def callScenarioByName(self, scenarioName:str):
 
