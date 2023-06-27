@@ -6,16 +6,20 @@ sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 
 import scenarioManager
 import player
-import checkpointManager
+#import checkpointManager
 import gui
 
 # create a gui instance
 root = gui.StartGui()
 
+# create a player instance
+player = player.Player("Farmer",800, 100, 0.7, 0, 100)
+
 # create a scenarioManager instance
-scenarioManager = scenarioManager.ScenarioManager(root)
+scenarioManager = scenarioManager.ScenarioManager(root, player)
 print(scenarioManager.scenarios)
-print(scenarioManager.callRandomScenario())
+print(scenarioManager.callScenarioByName("01"))
+print(scenarioManager.callScenarioByName("River"))
 print(scenarioManager.callRandomScenario())
 print(scenarioManager.callRandomScenario())
 print(scenarioManager.callRandomScenario())

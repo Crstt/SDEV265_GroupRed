@@ -1,12 +1,12 @@
-#from scenarios import *
 import random
 import os
 import importlib
 import sys
 
 class ScenarioManager:
-    def __init__(self, gui):
+    def __init__(self, gui, player):
         self.gui = gui
+        self.player = player
         self.scenarios = []
         self.specialScenarios = []
 
@@ -54,8 +54,18 @@ class ScenarioManager:
         return self.callScenario(random.choice(self.scenarios))
     
     def callScenario(self, scenario):
-        print(f"Calling scenario: {scenario}")
+        print(f"Calling scenario: {scenario.name}")
         return scenario.run()
+    
+    def callScenarioByName(self, scenarioName:str):
+
+        for scenario in self.specialScenarios:
+            if scenario.name == scenarioName:
+                return self.callScenario(scenario)
+
+        for scenario in self.scenarios:
+            if scenario.name == scenarioName:
+                return self.callScenario(scenario)
     
     def modFood(self):
         # Implement the logic to modify food here

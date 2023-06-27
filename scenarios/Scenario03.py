@@ -1,16 +1,14 @@
-class scenarioHunt:
-    def __init__(self, manager):
-        super().__init__()
-        self.manager = manager
-        self.name = "Hunt"
+class Scenario03:
+    def __init__(self, gui):
+        self.gui = gui
+        self.name = "03"
         self.description = "description"
         self.choice = ["choice1", "choice 2"]
         self.choice = []
     
     def run(self):
         print("Running scenario code...")
-        
-        return self.name
+        return 3
         # Implement the logic for the scenario here
     
     def openPopUp(self):

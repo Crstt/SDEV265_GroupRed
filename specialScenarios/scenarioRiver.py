@@ -2,6 +2,7 @@ class scenarioRiver:
     def __init__(self, manager):
         super().__init__()
         self.manager = manager
+        self.name = "River"
         self.description = "description"
         self.choice = ["choice1", "choice 2"]
         self.choice = []
