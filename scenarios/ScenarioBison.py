@@ -1,12 +1,12 @@
 import random
-class scenarioHunt:
+class ScenarioBison:
     def __init__(self, gui, huntAdjust):
         self.gui = gui
         self.huntAdjust = huntAdjust
-        self.name = "Hunt"
-        self.description = "You decided to hunt today. You see some deer in the distance."
+        self.name = "Bison"
+        self.description = "You saw some wild buffalo in the distance. They didn't bother you and you traveled along your way. "
         #self.choice = ["This text will describe choice1", "This text will describe choice 2"]
-        self.choice = [] #This would be the for when a scenario has no choice option
+        self.choice = [] #This scenario has no choice availabe
         self.mod = self.Modifiers()
 
     class Modifiers:
@@ -20,15 +20,9 @@ class scenarioHunt:
         print(f"Running scenario {self.name}...")
         print(self.description)
         
-        if random.randint(1,100) <= self.huntAdjust:
-                huntFood = random.randint(5,15)                  
-                print(f"You successfully hunted a deer. You got {huntFood} pounds of meet")
-                self.mod.food += huntFood
-                
-        else:
-            print("The deer escaped. You did not get any food")
-
-        return self.mod
+        self.mod.distance = random.randint(16,32)
+        print(f"You travveled {self.mod.distance} miles today")
+        return self.mod 
     
     def openPopUp(self):
         print("Opening popup...")
