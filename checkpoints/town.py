@@ -1,8 +1,8 @@
 class TownCheckpoint:
-    def __init__(self, distNextCP=0,name=""):
+    def __init__(self, distToNextCP=0,name=""):
         self.isRiver = False
         self.isTown = True
-        self.distNextCP = distNextCP
+        self.distToNextCP = distToNextCP
         self.name=name
         
     def updateState(self):

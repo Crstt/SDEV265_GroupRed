@@ -1,7 +1,9 @@
 from checkpointManager import *
 from checkpoints.town import *
 from checkpoints.river import *
-
+from gui import *
+from player import *
+import sys
 #initialization of a checkpoint manager. These checkpoints are based on the design doc. Not intended for final use but may be suitable with parameter changes
 #these locations can be found in the game mechanics doc
 checkpointList = []
@@ -32,28 +34,35 @@ checkpointList.append(riverCheckpoint4)
 finishCheckpoint = TownCheckpoint(0,"Finish")
 checkpointList.append(finishCheckpoint)
 
-scenarios={"river"}
-scenarioManager = ScenarioManager(scenarios)
-checkpointManagerInstance = CheckpointManager(checkpointList,ScenarioManager)
+player = Player("Farmer",800, 100, 0.7, 0, 100)
+notARealGui = ""
+scenarioManager = ScenarioManager(notARealGui,player)
+
+checkpointManagerInstance = CheckpointManager(checkpointList,scenarioManager,player)
+
 
 #tests
-#should be Start
+#should be Start town,
 print(checkpointManagerInstance.currentCheckpoint.name)
-#creates text based interface for manipulating a town. calls the scenarios, but doesn't actually do anything
-#scenario manager will print the scenario name
+#should be 20:
+print("distNext 1:",player.distNext)
+# creates a terminal menu for the town, only choice 1 (travel)will do anything right now
 checkpointManagerInstance.townScenario(-1)
-
-#update state then print the new checkpoint, should print "River 1"
-checkpointManagerInstance.updateState()
+print("distNext 2:",player.distNext)
+#if you choose choice 1 in the town scenario, this will advance you again and bring you to a river scenario. you can choose to ferry right then and it iwll spend the money
+print("calling nextCheckpoint()")
+checkpointManagerInstance.nextCheckpoint()
+#should be 20, loops over into the new river checkpoint 
+print("distNext 3:" ,player.distNext)
 print(checkpointManagerInstance.currentCheckpoint.name)
+#should be 650 since the player is a farmer
+print("player money:",player.money)
 
 #print a river choices text interface
-checkpointManagerInstance.riverScenario(-1)
 
-#this simulates a river scenario called from the GUI - will simply call a scenario
+
+#this simulates a river scenario called from the GUI - will simply the ferry scenario
 checkpointManagerInstance.riverScenario(2)
 
-#progress through all the remaining checkpoints to trigger a gameover
-for x in range(0,7):
-    checkpointManagerInstance.updateState()
+
     
