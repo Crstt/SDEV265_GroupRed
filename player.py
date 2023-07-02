@@ -1,9 +1,9 @@
-from random import random
-from . import checkpointManager
+import random
+#from . import checkpointManager
 
 class Player:
-    miles = random(16,32)
-    foodDaily = random(12,15)
+    miles = random.randint(16,32)
+    foodDaily = random.randint(12,15)
 
     def __init__(self, character:str, money:int, food:int, huntAdjust:float, buyHudjust:float, distNext:int):
         self.character = character
@@ -20,7 +20,8 @@ class Player:
             self.food -= food
             if self.distNext <=0:
                 #call Checkpoint Manager
-                checkpointManager
+                #checkpointManager
+                pass
 
     def hunt(self, food=foodDaily):
         #call scenario hunt
