@@ -58,7 +58,7 @@ class ScenarioManager:
         mod = scenario.run()
         self.player.food += mod.food
         self.player.money += mod.money
-        self.player.distNext -= mod.distance
+        self.player.distNext += mod.distance
         return mod
     
     def callScenarioByName(self, scenarioName:str):
