@@ -81,11 +81,3 @@ class ScenarioManager:
         ateFood = 0 - random.randint(3,5)
         print(f"You ate and used {-ateFood} pounds of food")
         return ateFood
-    
-    def modFood(self):
-        # Implement the logic to modify food here
-        pass
-    
-    def modState(self):
-        # Implement the logic to modify state here
-        pass
