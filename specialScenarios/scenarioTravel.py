@@ -12,13 +12,14 @@ class scenarioTravel:
     class Modifiers:
         def __init__(self):
             self.food = 0 - random.randint(3,5)  # Example attribute
-            self.distance = 10  # Example attribute
+            self.distance = -10  # Example attribute
             self.money = 0  # Example attribute
             self.death = False  # Example attribute
     
     def run(self):
         print("Running scenario code...")
         #TODO: call a random scenario based on random number generator
+        self.distance = random.randint(-13,-7)
         return self.mod
         # Implement the logic for the scenario here
     
