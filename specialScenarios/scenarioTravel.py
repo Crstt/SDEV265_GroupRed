@@ -1,8 +1,9 @@
 import random
 class scenarioTravel:
-    def __init__(self, manager):
+    def __init__(self, gui, huntAdjust):
         super().__init__()
-        self.manager = manager
+        self.gui = gui
+        self.huntAdjust = huntAdjust
         self.name = "Travel"
         self.description = "This text will describe the promt to the user"
         self.choice = ["This text will describe choice1", "This text will describe choice 2"]

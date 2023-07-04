@@ -31,10 +31,12 @@ class CheckpointManager:
                 self.player.distNext=self.currentCheckpoint.distToNextCP
                 #call the river() or town() menus once arriving at a new checkpoint
                 #once there the gui is ready to display choices these wont need to do a terminal
-                if self.currentCheckpoint.isRiver:
-                    self.riverScenario()
+                if self.currentCheckpoint.isRiver :
+                    self.scenarioManager.callScenarioByName("River")
+                    self.player.distNext = self.currentCheckpoint.distToNextCP
                 else:
                     self.townScenario()
+                    self.player.distNext = self.currentCheckpoint.distToNextCP
                 
         else:
             #player still has distance to go, call the player. travel checkpoint
@@ -42,13 +44,6 @@ class CheckpointManager:
             if(self.player.distNext <= 0):
                 #if the palyer hits 0 distance to the next checkpoint, this will call nextCheckpoint again to pull up river or town scenarios
                 self.nextCheckpoint()
-
-        
-            
-    #if default choice of -1 is used, use terminal to poll choices
-    #if choice isn't -1, then the input comes from a GUI selection and thus a specific scenario can be called directly from the scenario manager
-    def riverScenario(self,choice = -1):
-        self.callScenarioByName("River")
     #if default choice of -1 is used, use a terminal to poll choices
     #if choice isn't -1, then the input comes from a GUI selection and thus a specific scenario can be called directly from the scenario manager
     def townScenario(self,choice = -1):

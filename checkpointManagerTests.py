@@ -62,7 +62,6 @@ print("player money:",player.money)
 
 
 #this simulates a river scenario called from the GUI - will simply the ferry scenario
-checkpointManagerInstance.riverScenario(2)
 
 
     

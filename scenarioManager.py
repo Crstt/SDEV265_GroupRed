@@ -4,9 +4,11 @@ import importlib
 import sys
 
 class ScenarioManager:
+    #creates a player object that every scenario can refer to without needing to pass it to the constructor
     def __init__(self, gui, player):
         self.gui = gui
         self.player = player
+        globalPlayer = player
         self.scenarios = []
         self.specialScenarios = []
 
@@ -44,7 +46,11 @@ class ScenarioManager:
                 class_obj = getattr(module, class_name)
                 
                 # Instantiate the class and add the object to the scenarios array
-                loadedScenarios.append(class_obj(self.gui, self.player.huntAdjust))
+                class_obj_param = class_obj(self.gui, self.player.huntAdjust)
+                #this is so the scenarios that need to reference the player have a reference to work with
+                if(class_name =="scenarioRiver"):
+                    class_obj.setPlayer(class_obj,self.player)
+                loadedScenarios.append(class_obj_param)
             
         # Remove the scenarios folder from the Python module search path
         sys.path.remove(scenarios_folder)
