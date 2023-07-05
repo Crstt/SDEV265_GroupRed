@@ -1,28 +1,46 @@
 import random
+import csv
+
 #from . import checkpointManager
 
 class Player:
     miles = random.randint(16,32)
     foodDaily = random.randint(12,15)
 
-    def __init__(self, character:str, money:int, food:int, huntAdjust:float, buyHudjust:float, distNext:int):
+    def __init__(self, character:str, money:int, food:int, huntAdjust:float, buyAudjust:float, distNext:int):
         self.character = character
         self.money = money
         self.food = food
         self.huntAdjust = huntAdjust
-        self.buyAdjust = buyHudjust
+        self.buyAdjust = buyAudjust
         self.distNext = distNext
 
-    def travel(self,didTravel=True, miles=miles, food=foodDaily):
-        #call scenario
-        if didTravel:
-            self.distNext -= miles
-            self.food -= food
-            if self.distNext <=0:
-                #call Checkpoint Manager
-                #checkpointManager
-                pass
+    def createPlayer():
+        filename = "SDEV265_GroupRed/characters.txt"
+        characters = {}
+        with open(filename, 'r') as csvfile:
+            for row in csv.reader(csvfile):
+                characters[row[0]] = Player(*row[1:])
+        return characters
+    
+characters = Player.createPlayer()
+print (characters['Banker'].character)
+print (characters['Banker'].money)
+print (characters['Banker'].food)
+print (characters['Banker'].huntAdjust)
+print (characters['Banker'].buyAdjust)
+print (characters['Banker'].distNext)
 
-    def hunt(self, food=foodDaily):
-        #call scenario hunt
-        self.food -= food
+print (characters['Merchant'].character)
+print (characters['Merchant'].money)
+print (characters['Merchant'].food)
+print (characters['Merchant'].huntAdjust)
+print (characters['Merchant'].buyAdjust)
+print (characters['Merchant'].distNext)
+
+print (characters['Farmer'].character)
+print (characters['Farmer'].money)
+print (characters['Farmer'].food)
+print (characters['Farmer'].huntAdjust)
+print (characters['Farmer'].buyAdjust)
+print (characters['Farmer'].distNext)
