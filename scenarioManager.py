@@ -4,9 +4,11 @@ import importlib
 import sys
 
 class ScenarioManager:
+    #creates a player object that every scenario can refer to without needing to pass it to the constructor
     def __init__(self, gui, player):
         self.gui = gui
         self.player = player
+        globalPlayer = player
         self.scenarios = []
         self.specialScenarios = []
 

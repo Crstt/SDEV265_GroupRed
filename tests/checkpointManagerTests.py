@@ -1,9 +1,12 @@
+import sys
+import os
+sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 from checkpointManager import *
 from checkpoints.town import *
 from checkpoints.river import *
 from gui import *
 from player import *
-import sys
+
 #initialization of a checkpoint manager. These checkpoints are based on the design doc. Not intended for final use but may be suitable with parameter changes
 #these locations can be found in the game mechanics doc
 checkpointList = []
@@ -62,7 +65,6 @@ print("player money:",player.money)
 
 
 #this simulates a river scenario called from the GUI - will simply the ferry scenario
-checkpointManagerInstance.riverScenario(2)
 
 
     
