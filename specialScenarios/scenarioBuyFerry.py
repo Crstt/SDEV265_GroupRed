@@ -1,8 +1,9 @@
 import random
 class scenarioTravel:
-    def __init__(self, manager):
+    def __init__(self, manager, player):
         super().__init__()
         self.manager = manager
+        self.player = player
         self.name = "buyFerry"
         self.description = "You bought a ferry."
         self.choice = ["This text will describe choice1", "This text will describe choice 2"]

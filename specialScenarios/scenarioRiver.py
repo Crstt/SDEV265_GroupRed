@@ -1,7 +1,7 @@
 class scenarioRiver:
-    def __init__(self, gui, huntAdjust):
+    def __init__(self, gui, player):
         self.gui = gui
-        self.huntAdjust = huntAdjust
+        self.player = player
         self.name = "River"
         self.description = "description"
         self.choice = ["choice1", "choice 2"]

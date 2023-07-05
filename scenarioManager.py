@@ -44,7 +44,7 @@ class ScenarioManager:
                 class_obj = getattr(module, class_name)
                 
                 # Instantiate the class and add the object to the scenarios array
-                loadedScenarios.append(class_obj(self.gui, self.player.huntAdjust))
+                loadedScenarios.append(class_obj(self.gui, self.player))
             
         # Remove the scenarios folder from the Python module search path
         sys.path.remove(scenarios_folder)
