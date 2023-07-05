@@ -1,8 +1,9 @@
 import random
 class scenarioTravel:
-    def __init__(self, manager, player):
+    def __init__(self, manager, gui, player):
         super().__init__()
         self.manager = manager
+        self.gui = gui
         self.player = player
         self.name = "Travel"
         self.description = "This text will describe the promt to the user"
@@ -13,13 +14,14 @@ class scenarioTravel:
     class Modifiers:
         def __init__(self):
             self.food = 0 - random.randint(3,5)  # Example attribute
-            self.distance = 10  # Example attribute
+            self.distance = -10  # Example attribute
             self.money = 0  # Example attribute
             self.death = False  # Example attribute
     
     def run(self):
         print("Running scenario code...")
         #TODO: call a random scenario based on random number generator
+        self.distance = random.randint(-13,-7)
         return self.mod
         # Implement the logic for the scenario here
     
