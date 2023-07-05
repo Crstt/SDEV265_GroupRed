@@ -1,8 +1,8 @@
 import random
 class ScenarioFork:
-    def __init__(self, gui, huntAdjust):
+    def __init__(self, gui, player):
         self.gui = gui
-        self.huntAdjust = huntAdjust
+        self.player = player
         self.name = "Fork"
         self.description = "There is a fork in the trail. Do you want to go right toward the forest or left toward the plains? "
         self.choice = ["This text will describe choice1", "This text will describe choice 2"]
@@ -22,7 +22,7 @@ class ScenarioFork:
 
         choice = int(input("1 for forest or 2 for plains: "))
         if choice == random.randint(1,2):
-            if random.randint(1,100) <= self.huntAdjust:
+            if random.randint(1,100) <= self.player.huntAdjust:
                 print("You got lost. You did not travel much closer today.")
             else:                
                 print("You ran into a python in the wilderness, got bitten, and died")

@@ -1,8 +1,8 @@
 import random
 class ScenarioBison:
-    def __init__(self, gui, huntAdjust):
+    def __init__(self, gui, player):
         self.gui = gui
-        self.huntAdjust = huntAdjust
+        self.player = player
         self.name = "Bison"
         self.description = "You saw some wild buffalo in the distance. They didn't bother you and you traveled along your way. "
         #self.choice = ["This text will describe choice1", "This text will describe choice 2"]

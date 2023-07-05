@@ -1,8 +1,8 @@
 import random
 class scenarioHunt:
-    def __init__(self, gui, huntAdjust):
+    def __init__(self, gui, player):
         self.gui = gui
-        self.huntAdjust = huntAdjust
+        self.player = player
         self.name = "Hunt"
         self.description = "You decided to hunt today. You see some deer in the distance."
         #self.choice = ["This text will describe choice1", "This text will describe choice 2"]
@@ -20,7 +20,7 @@ class scenarioHunt:
         print(f"Running scenario {self.name}...")
         print(self.description)
         
-        if random.randint(1,100) <= self.huntAdjust:
+        if random.randint(1,100) <= self.player.huntAdjust:
                 huntFood = random.randint(5,15)                  
                 print(f"You successfully hunted a deer. You got {huntFood} pounds of meet")
                 self.mod.food += huntFood
