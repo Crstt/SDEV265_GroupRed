@@ -4,9 +4,9 @@ import os
 sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 import scenarioManager
 class scenarioRiver:
-    def __init__(self, gui, huntAdjust):
+    def __init__(self, gui, player):
         self.gui = gui
-        self.huntAdjust = huntAdjust
+        self.player = player
         self.name = "River"
         self.description = "You are at a river crossing, and you can ford the river or buy a ferry across."
         self.choice = ["Ford River", "Buy Ferry"]

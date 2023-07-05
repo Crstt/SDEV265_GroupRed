@@ -1,8 +1,8 @@
 import random
 class ScenarioTravel:
-    def __init__(self, gui, huntAdjust):
+    def __init__(self, gui, player):
         self.gui = gui
-        self.huntAdjust = huntAdjust
+        self.player = player
         self.name = "Travel"
         self.description = "Nothing happens today. You traveled one step closer to the next town and used one day's food ration."
         #self.choice = ["This text will describe choice1", "This text will describe choice 2"]

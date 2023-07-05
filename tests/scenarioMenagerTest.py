@@ -13,17 +13,21 @@ import gui
 root = gui.StartGui()
 
 # create a player instance
-player = player.Player("Farmer",800, 100, 1, 0, 100)
+player = player.Player("Farmer",800, 100, 70, 0, 100)
 
 # create a scenarioManager instance
 scenarioManager = scenarioManager.ScenarioManager(root, player)
 #print(scenarioManager.scenarios)
-print(scenarioManager.callScenarioByName("Fork"))
+'''print(scenarioManager.callScenarioByName("Fork"))
 print(scenarioManager.callScenarioByName("Fork"))
 print(scenarioManager.callScenarioByName("Travel"))
 print(scenarioManager.callScenarioByName("Bison"))
 print(scenarioManager.callScenarioByName("Fork"))
-print(scenarioManager.callScenarioByName("Hunt"))
+print(scenarioManager.callScenarioByName("Hunt"))'''
+
+for i in range(1,11):
+    scenarioManager.callRandomScenario()
+    print(f"------------{i}------------")
 
 #starts the gui main loop
 root.mainloop()
