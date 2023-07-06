@@ -7,6 +7,7 @@ from PIL import Image, ImageTk
 class StartGui(tk.Tk):
     def __init__(self):
         super().__init__()
+        global image, image_tk
 
         # Colors used in the program
         self.bg = "#242734" #primary background color
