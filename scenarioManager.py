@@ -1,12 +1,14 @@
-#from scenarios import *
 import random
 import os
 import importlib
 import sys
 
 class ScenarioManager:
-    def __init__(self, gui):
+    #creates a player object that every scenario can refer to without needing to pass it to the constructor
+    def __init__(self, gui, player):
         self.gui = gui
+        self.player = player
+        globalPlayer = player
         self.scenarios = []
         self.specialScenarios = []
 
@@ -44,7 +46,10 @@ class ScenarioManager:
                 class_obj = getattr(module, class_name)
                 
                 # Instantiate the class and add the object to the scenarios array
-                loadedScenarios.append(class_obj(self.gui))
+                try:
+                    loadedScenarios.append(class_obj(self.gui, self.player))
+                except Exception as exception:
+                    print(exception)
             
         # Remove the scenarios folder from the Python module search path
         sys.path.remove(scenarios_folder)
@@ -54,17 +59,30 @@ class ScenarioManager:
         return self.callScenario(random.choice(self.scenarios))
     
     def callScenario(self, scenario):
-        print(f"Calling scenario: {scenario}")
-        return scenario.run()
+        print(f"Calling scenario: {scenario.name}")
+        mod = scenario.run()
+        if mod.death:
+            print("END GAME") 
+            #TODO: finish developing the end game mechanic
+            return mod
+        self.player.food += mod.food        
+        self.player.money += mod.money
+        self.player.distNext += mod.distance
+
+        self.player.food += self.eat() #the player always eats. Handaled by default by the manager
+        return mod
     
-    def modFood(self):
-        # Implement the logic to modify food here
-        pass
+    def callScenarioByName(self, scenarioName:str):
+
+        for scenario in self.specialScenarios:
+            if scenario.name == scenarioName:
+                return self.callScenario(scenario)
+
+        for scenario in self.scenarios:
+            if scenario.name == scenarioName:
+                return self.callScenario(scenario)
     
-    def modDay(self):
-        # Implement the logic to modify day here
-        pass
-    
-    def modState(self):
-        # Implement the logic to modify state here
-        pass
+    def eat(self):
+        ateFood = 0 - random.randint(3,5)
+        print(f"You ate and used {-ateFood} pounds of food")
+        return ateFood
