@@ -16,7 +16,7 @@ class Player:
         self.distNext = distNext
 
 def selectCharacter():
-    filename = "characters.txt"
+    filename = "characters.csv"
     choices = {}
     with open(filename, 'r') as csvfile:
         for row in csv.reader(csvfile):
@@ -33,7 +33,7 @@ def selectCharacter():
         #create character description for display
         hunt = str(float(choices[cKey[i]].huntAdjust) * 100)
         buy = str(float(choices[cKey[i]].buyAdjust) * 100)
-        discriptionLabel = "The" + choices[cKey[i]].character + " starts with $" + choices[cKey[i]].money + ", and a " + hunt + " percent change to hunting as well as " + buy  +" percent change to buying costs."
+        descriptionLabel = "The" + choices[cKey[i]].character + " starts with $" + choices[cKey[i]].money + ", and a " + hunt + " percent change to hunting as well as " + buy  +" percent change to buying costs."
         button1Label = "Choose " + choices[cKey[i]].character
         """
         This will need to be editied to configure to the GUI button clicks beyond this point. This is essentially a sample of what the code should sortof look like
@@ -43,7 +43,7 @@ def selectCharacter():
         button2.click()
             i+=1
         """
-        print(discriptionLabel)
+        print(descriptionLabel)
         print(button1Label)
         print(button2Label)
 
