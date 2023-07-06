@@ -1,20 +1,9 @@
 import random
-class scenarioHunt:
-    def __init__(self, gui, player):
-        self.gui = gui
-        self.player = player
-        self.name = "Hunt"
-        self.description = "You decided to hunt today. You see some deer in the distance."
-        #self.choice = ["This text will describe choice1", "This text will describe choice 2"]
-        self.choice = [] #This would be the for when a scenario has no choice option
-        self.mod = self.Modifiers()
+import scenarioManager
 
-    class Modifiers:
-        def __init__(self):
-            self.food = 0  # Food consumed during the day
-            self.distance = 0 # Travveled distance during the day
-            self.money = 0  # No money spent
-            self.death = False  # Did not die
+class ScenarioHunt(scenarioManager.Scenario):
+    def __init__(self, gui, player, name, description, choice):
+        super().__init__(gui, player, name, description, choice)
     
     def run(self):
         print(f"Running scenario {self.name}...")
