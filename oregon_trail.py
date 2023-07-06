@@ -1,5 +1,6 @@
 from scenarioManager import *
 import player
+from player import *
 import checkpointManager
 import gui
 
@@ -13,3 +14,5 @@ scenarioManager = ScenarioManager(root)
 root.mainloop()
 
 #implement instance of player
+player1 = Player(*selectCharacter())
+
