@@ -1,3 +1,3 @@
-Banker, The Banker,2000,0,-0.25,0,0
-Farmer, The Farmer, 1000,0,0.25,0,0
-Merchant, The Merchant, 1500, 0, 0, 0.25, 0
+Character1, Banker,2000,0,-0.25,0,0
+Character2, Farmer, 1000,0,0.25,0,0
+Character3, Merchant, 1500, 0, 0, 0.25, 0

@@ -16,31 +16,58 @@ class Player:
         self.distNext = distNext
 
     def createPlayer():
-        filename = "SDEV265_GroupRed/characters.txt"
+        filename = "characters.txt"
         characters = {}
         with open(filename, 'r') as csvfile:
             for row in csv.reader(csvfile):
                 characters[row[0]] = Player(*row[1:])
         return characters
-    
-characters = Player.createPlayer()
-print (characters['Banker'].character)
-print (characters['Banker'].money)
-print (characters['Banker'].food)
-print (characters['Banker'].huntAdjust)
-print (characters['Banker'].buyAdjust)
-print (characters['Banker'].distNext)
 
-print (characters['Merchant'].character)
-print (characters['Merchant'].money)
-print (characters['Merchant'].food)
-print (characters['Merchant'].huntAdjust)
-print (characters['Merchant'].buyAdjust)
-print (characters['Merchant'].distNext)
+    def selectCharacter():
+        filename = "characters.txt"
+        choices = {}
+        with open(filename, 'r') as csvfile:
+            for row in csv.reader(csvfile):
+                choices[row[0]] = Player(*row[1:])
+        
+        cKey = [*choices]
+        c=0
+        i= 0
+        button2Label = "See Next Option"
+        while c == 0:
+            loopBoundry = len(choices)
+            if i == loopBoundry:
+                i=0
+            #create character description for display
+            hunt = str(float(choices[cKey[i]].huntAdjust) * 100)
+            buy = str(float(choices[cKey[i]].buyAdjust) * 100)
+            discriptionLabel = "The" + choices[cKey[i]].character + " starts with $" + choices[cKey[i]].money + ", and a " + hunt + " percent change to hunting as well as " + buy  +" percent change to buying costs."
+            button1Label = "Choose " + choices[cKey[i]].character
+            """
+            This will need to be editied to configure to the GUI button clicks beyond this point. This is essentially a sample of what the code should sortof look like
+            The input and if statements are for testing purposes only
+            button1.click()
+                c=i
+            button2.click()
+                i+=1
+            """
+            print(discriptionLabel)
+            print(button1Label)
+            print(button2Label)
 
-print (characters['Farmer'].character)
-print (characters['Farmer'].money)
-print (characters['Farmer'].food)
-print (characters['Farmer'].huntAdjust)
-print (characters['Farmer'].buyAdjust)
-print (characters['Farmer'].distNext)
+            selection = input("what button do you click? b1 - b2")
+            if selection == "b1":
+                c=i
+                return (choices[cKey[c]].character, choices[cKey[c]].money, choices[cKey[c]].food, choices[cKey[c]].huntAdjust, choices[cKey[c]].buyAdjust, choices[cKey[c]].distNext)
+            else: i += 1
+
+            
+
+player1 = Player(Player.selectCharacter())
+
+print(player1.character)
+print(player1.money)
+print(player1.food)
+print(player1.huntAdjust)
+print(player1.buyAdjust)
+print(player1.distNext)
