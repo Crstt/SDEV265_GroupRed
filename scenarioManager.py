@@ -1,7 +1,24 @@
 import random
+import csv
 import os
 import importlib
 import sys
+
+class Scenario:
+    def __init__(self, gui, player, name, description, choice):
+        self.gui = gui
+        self.player = player
+        self.name = name
+        self.description = description
+        self.choice = choice
+        self.mod = self.Modifiers()
+
+    class Modifiers:
+        def __init__(self):
+            self.food = 0  # Food consumed during the day
+            self.distance = 0  # Traveled distance during the day
+            self.money = 0  # No money spent
+            self.death = False  # Did not die
 
 class ScenarioManager:
     #creates a player object that every scenario can refer to without needing to pass it to the constructor
@@ -9,8 +26,8 @@ class ScenarioManager:
         self.gui = gui
         self.player = player
         globalPlayer = player
-        self.scenarios = []
-        self.specialScenarios = []
+        self.scenarios = {}
+        self.specialScenarios = {}
 
         # Path to the scenarios folder
         scenarios_folder = 'scenarios'
@@ -22,10 +39,13 @@ class ScenarioManager:
 
     def loadScenarios(self, scenarios_folder):
 
-        loadedScenarios = []
+        # loadedScenarios = []
+        scenarios_dict = {}
 
         # Add the scenarios folder to the Python module search path
         sys.path.append(scenarios_folder)
+
+        scenarios_values_dict = self.loadFromCsv(scenarios_folder + "/scenarios.csv")  
 
         # Get a list of Python files in the scenarios folder
         files = [f for f in os.listdir(scenarios_folder) if os.path.isfile(os.path.join(scenarios_folder, f)) and f.endswith('.py')]
@@ -46,14 +66,43 @@ class ScenarioManager:
                 class_obj = getattr(module, class_name)
                 
                 # Instantiate the class and add the object to the scenarios array
-                loadedScenarios.append(class_obj(self.gui, self.player))
+                try:
+                    name = class_name.replace("Scenario", "")
+                    #loadedScenarios.append(class_obj(self.gui, self.player, name, scenarios_values_dict[name]['description'], scenarios_values_dict[name]['choice'])
+                    scenarios_dict[name] = class_obj(self.gui, self.player, name, scenarios_values_dict[name]['description'], scenarios_values_dict[name]['choice'])
+                except Exception as exception:
+                    print(exception)
             
         # Remove the scenarios folder from the Python module search path
         sys.path.remove(scenarios_folder)
-        return loadedScenarios
+        return scenarios_dict
     
+    def loadFromCsv(self, csv_path):
+        scenarios_values_dict = {}
+
+        with open(csv_path, 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                name = row['Name']
+                description = row['Description']
+                choice1 = row['Choice 1']
+                choice2 = row['Choice 2']
+                if choice1 == "" and choice2 == "":
+                    choice = []
+                else:
+                    choice = [choice1, choice2]
+
+
+                # Add the scenario to the scenarios_values_dict dictionary
+                scenarios_values_dict[name] = {
+                    'description': description,
+                    'choice': choice
+                }
+
+        return scenarios_values_dict
+        
     def callRandomScenario(self):
-        return self.callScenario(random.choice(self.scenarios))
+        return self.callScenario(random.choice(list(self.scenarios.items()))[1])
     
     def callScenario(self, scenario):
         print(f"Calling scenario: {scenario.name}")
@@ -67,17 +116,16 @@ class ScenarioManager:
         self.player.distNext += mod.distance
 
         self.player.food += self.eat() #the player always eats. Handaled by default by the manager
+        input() # Stops the run of the game at each scenario TODO remove this
         return mod
     
     def callScenarioByName(self, scenarioName:str):
 
-        for scenario in self.specialScenarios:
-            if scenario.name == scenarioName:
-                return self.callScenario(scenario)
-
-        for scenario in self.scenarios:
-            if scenario.name == scenarioName:
-                return self.callScenario(scenario)
+        if scenarioName in self.scenarios:
+            return self.callScenario(self.scenarios[scenarioName])
+        
+        if scenarioName in self.specialScenarios:
+            return self.callScenario(self.specialScenarios[scenarioName])
     
     def eat(self):
         ateFood = 0 - random.randint(3,5)
