@@ -17,17 +17,24 @@ player = player.Player("Farmer",800, 100, 70, 0, 100)
 
 # create a scenarioManager instance
 scenarioManager = scenarioManager.ScenarioManager(root, player)
-#print(scenarioManager.scenarios)
-'''print(scenarioManager.callScenarioByName("Fork"))
-print(scenarioManager.callScenarioByName("Fork"))
-print(scenarioManager.callScenarioByName("Travel"))
-print(scenarioManager.callScenarioByName("Bison"))
-print(scenarioManager.callScenarioByName("Fork"))
-print(scenarioManager.callScenarioByName("Hunt"))'''
 
-for i in range(1,11):
-    scenarioManager.callRandomScenario()
-    print(f"------------{i}------------")
+def testSpecificScenarios():
+    if scenarioManager.callScenarioByName("Travel").death: return True
+    if scenarioManager.callScenarioByName("River").death: return True
+    if scenarioManager.callScenarioByName("Fork").death: return True
+    if scenarioManager.callScenarioByName("Bison").death: return True
+
+
+def testRandomScenarios(num):
+    for i in range(1,num + 1):
+        print(f"------------{i}------------")
+        if scenarioManager.callRandomScenario().death: return True
+        
+#if testSpecificScenarios(): quit()
+
+if testRandomScenarios(10): quit()
+
+
 
 #starts the gui main loop
 root.mainloop()
