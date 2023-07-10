@@ -40,10 +40,11 @@ class CheckpointManager:
                 
         else:
             #player still has distance to go, call the player. travel checkpoint
-            self.scenarioManager.callScenarioByName("Travel")
-            if(self.player.distNext <= 0):
+            while(self.player.distNext <= 0):
                 #if the palyer hits 0 distance to the next checkpoint, this will call nextCheckpoint again to pull up river or town scenarios
-                self.nextCheckpoint()
+                self.scenarioManager.callRandomScenario()
+            
+            self.nextCheckpoint()
     #if default choice of -1 is used, use a terminal to poll choices
     #if choice isn't -1, then the input comes from a GUI selection and thus a specific scenario can be called directly from the scenario manager
     def townScenario(self,choice = -1):

@@ -52,7 +52,7 @@ class scenarioRiver:
                         loopTillValidInput=False
                     elif(playerChoice==2):
                         if(self.player.character=="Merchant"):
-                            if(player.money>=self.ferryCost*.9):
+                            if(self.player.money>=self.ferryCost*.9):
                                 loopTillValidInput=False
                                 self.mod.money=-self.ferryCost*.9
                                 #cross the river
@@ -85,7 +85,7 @@ class scenarioRiver:
                     return self.mod
             elif(choice==2):
                 if(self.player.character=="Merchant"):
-                    if(player.money>=self.ferryCost*.9):
+                    if(self.player.money>=self.ferryCost*.9):
                         loopTillValidInput=False
                         self.mod.money=-self.ferryCost*.9
                         self.mod.distance=-10
