@@ -116,20 +116,24 @@ class ScenarioManager:
         
         self.player.food += mod.food        
         self.player.money += mod.money
-        self.player.distNext += mod.distance
+        self.player.distNext -= mod.distance
 
-        self.player.food += self.eat() #the player always eats. Handaled by default by the manager
+        ateFood = 0 - random.randint(3,5)
+        self.player.food += ateFood #the player always eats. Handaled by default by the manager
 
-        if self.player.food < 0:
-            print("You ran out of food")
-            mod.death = True
-
+        
         if mod.death:
             print("END GAME") 
             #TODO: finish developing the end game mechanic
             #return mod
+        else:
+            if self.player.food < 0:
+                print("You ran out of food")
+                mod.death = True
+            else:
+                print(f"You ate and used {-ateFood} pounds of food")
+                mod.result += f"\nYou ate and used {-ateFood} pounds of food. You now have {self.player.food} pounds of food left."
 
-        print("Continuing game")
         self.gui.scenarioOutput(mod)
                   
     
@@ -140,8 +144,3 @@ class ScenarioManager:
         
         if scenarioName in self.specialScenarios:
             return self.callScenario(self.specialScenarios[scenarioName])
-    
-    def eat(self):
-        ateFood = 0 - random.randint(3,5)
-        print(f"You ate and used {-ateFood} pounds of food")
-        return ateFood

@@ -81,7 +81,9 @@ class CheckpointManager:
                 loopTillValidInput=False
 
     def nextScenario(self):
+        print(f"Distance to the next scenario {self.player.distNext}")
         if self.player.distNext <= 0:
             self.nextCheckpoint()
+            print("Checkpoint reached, calling next checkpoint")
         else:
             self.scenarioManager.callRandomScenario()
