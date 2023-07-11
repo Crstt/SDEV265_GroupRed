@@ -50,7 +50,7 @@ def selectCharacter():
         selection = input("what button do you click? b1 - b2  ")
         if selection == "b1":
             c=i
-            return choices[cKey[c]].character, choices[cKey[c]].money, choices[cKey[c]].food, choices[cKey[c]].huntAdjust, choices[cKey[c]].buyAdjust, choices[cKey[c]].distNext
+            return choices[cKey[c]].character, int(choices[cKey[c]].money), int(choices[cKey[c]].food), float(choices[cKey[c]].huntAdjust), float(choices[cKey[c]].buyAdjust), int(choices[cKey[c]].distNext)
         else: i += 1
 
             
