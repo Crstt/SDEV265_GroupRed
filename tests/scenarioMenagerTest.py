@@ -20,9 +20,9 @@ scenarioManager = scenarioManager.ScenarioManager(root, player)
 
 def testSpecificScenarios():
     if scenarioManager.callScenarioByName("Travel").death: return True
-    if scenarioManager.callScenarioByName("River").death: return True
-    if scenarioManager.callScenarioByName("Fork").death: return True
-    if scenarioManager.callScenarioByName("Bison").death: return True
+    #if scenarioManager.callScenarioByName("River").death: return True
+    #if scenarioManager.callScenarioByName("Fork").death: return True
+    #if scenarioManager.callScenarioByName("Bison").death: return True
 
 
 def testRandomScenarios(num):
@@ -30,9 +30,10 @@ def testRandomScenarios(num):
         print(f"------------{i}------------")
         if scenarioManager.callRandomScenario().death: return True
         
-#if testSpecificScenarios(): quit()
+input("Press enter to start testing...")
+if testSpecificScenarios(): quit()
 
-if testRandomScenarios(10): quit()
+#if testRandomScenarios(10): quit()
 
 
 

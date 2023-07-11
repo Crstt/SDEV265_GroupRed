@@ -2,11 +2,11 @@ import random
 import scenarioManager
 
 class ScenarioRiver(scenarioManager.Scenario):
-    def __init__(self, gui, player, name, description, choice):
-        super().__init__(gui, player, name, description, choice)
+    def __init__(self, gui, player, name, description, choices):
+        super().__init__(gui, player, name, description, choices)
         self.ferryCost=150
 
-    def run(self):
+    def run(self, choice):
         print("Running scenario code...")
         #Eventually call openPopUp() to fetch the river choice from the GUI rather than terminal, and remove the terminal code
         choice = -1

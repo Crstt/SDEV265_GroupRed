@@ -79,3 +79,9 @@ class CheckpointManager:
                 #TODO: when the GUI is ready call something to prompt for the amount of food
                 self.scenarioManager.callScenarioByName("buySupplies")
                 loopTillValidInput=False
+
+    def nextScenario(self):
+        if self.player.distNext <= 0:
+            self.nextCheckpoint()
+        else:
+            self.scenarioManager.callRandomScenario()
