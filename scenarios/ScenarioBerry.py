@@ -1,7 +1,7 @@
 import random
 import scenarioManager
 
-class ScenarioFork(scenarioManager.Scenario):
+class ScenarioBerry(scenarioManager.Scenario):
     def __init__(self, gui, player, name, description, choices):
         super().__init__(gui, player, name, description, choices)
     
@@ -10,7 +10,7 @@ class ScenarioFork(scenarioManager.Scenario):
         print(self.description)
 
         #choice = int(input("1 for forest or 2 for plains: "))
-        if choice == random.randint(1,2):
+        if choice == 1:
             if random.randint(1,100) <= self.player.huntAdjust:
                 self.mod.result = "You got lost. You did not travel much closer today."
                 print("You got lost. You did not travel much closer today.")
