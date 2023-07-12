@@ -1,5 +1,9 @@
+import sys
+import os
+sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 import random
 import scenarioManager
+
 
 class ScenarioRiver(scenarioManager.Scenario):
     def __init__(self, gui, player, name, description, choice):
@@ -87,6 +91,4 @@ class ScenarioRiver(scenarioManager.Scenario):
                         return self.mod
 
     
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here
+    

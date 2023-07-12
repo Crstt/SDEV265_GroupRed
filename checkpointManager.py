@@ -1,7 +1,9 @@
 from checkpoints import *
 from scenarioManager import *
+import tkinter as tk
 class CheckpointManager:
-    
+    # inputHoldVariable is to control the game while waiting for input, -1 is to hold and not do anything with it
+    inputHoldVariable = -1
     def __init__(self, checkpoints,scenarioManager,player):
         self.checkpoints = checkpoints
         #to track where we're at, the state of the player within the checkpoints
@@ -32,6 +34,7 @@ class CheckpointManager:
                 #call the river() or town() menus once arriving at a new checkpoint
                 #once there the gui is ready to display choices these wont need to do a terminal
                 if self.currentCheckpoint.isRiver :
+                    print("Should be a \"calling scenario River \" here")
                     self.scenarioManager.callScenarioByName("River")
                     self.player.distNext = self.currentCheckpoint.distToNextCP
                 else:
@@ -40,7 +43,7 @@ class CheckpointManager:
                 
         else:
             #player still has distance to go, call the player. travel checkpoint
-            while(self.player.distNext <= 0):
+            while(self.player.distNext >= 0):
                 #if the palyer hits 0 distance to the next checkpoint, this will call nextCheckpoint again to pull up river or town scenarios
                 self.scenarioManager.callRandomScenario()
             
@@ -48,12 +51,11 @@ class CheckpointManager:
     #if default choice of -1 is used, use a terminal to poll choices
     #if choice isn't -1, then the input comes from a GUI selection and thus a specific scenario can be called directly from the scenario manager
     def townScenario(self,choice = -1):
-        
         if(choice==-1):
             loopTillValidInput = True
             while loopTillValidInput:
-                print("You are at",self.currentCheckpoint.name+".","What would you like to do?\n1-Continue on the Trail\n2-Check your supplies\n3-Rest\n4-Buy more supplies")
                 try:
+                    print("You are at",self.currentCheckpoint.name+".","What would you like to do?\n1-Continue on the Trail\n2-Buy more supplies")
                     playerChoice = int(input())
                     if(playerChoice == -1):
                         #debug option
@@ -62,7 +64,6 @@ class CheckpointManager:
                         self.scenarioManager.callScenarioByName("Travel")
                         loopTillValidInput=False
                     elif(playerChoice==2):
-                        #
                         self.scenarioManager.callScenarioByName("buySupplies")
                         loopTillValidInput=False
                     else:
@@ -80,3 +81,24 @@ class CheckpointManager:
                 #TODO: when the GUI is ready call something to prompt for the amount of food
                 self.scenarioManager.callScenarioByName("buySupplies")
                 loopTillValidInput=False
+def returnEntryText():
+    inputString = promptField.get()
+    CheckpointManager.inputHoldVariable = int(inputString)
+    popupWindow.destroy()
+    return 
+
+def openFoodPopUp(self):
+    print("Opening popup...")
+    global popupWindow,promptField
+    popupWindow = tk.Tk()
+    popupWindow.wm_title("Prompt")
+
+    promptText=tk.Label(popupWindow,text="How much food to buy?")
+    promptText.pack(fill="x")
+
+    promptField=tk.Entry(popupWindow)
+    promptField.pack(fill="x")
+
+    confirmButton=tk.Button(popupWindow,text="close",command=returnEntryText)
+    confirmButton.pack(fill="x")
+    # Implement the logic to open a popup related to the scenario here

@@ -8,7 +8,7 @@ class ScenarioFork(scenarioManager.Scenario):
     def run(self):
         print(f"Running scenario {self.name}...")
         print(self.description)
-
+        print("1 for forest or 2 for plains: ")
         choice = int(input("1 for forest or 2 for plains: "))
         if choice == random.randint(1,2):
             if random.randint(1,100) <= self.player.huntAdjust:

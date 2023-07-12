@@ -79,7 +79,6 @@ class ScenarioManager:
     
     def loadFromCsv(self, csv_path):
         scenarios_values_dict = {}
-
         with open(csv_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -113,14 +112,13 @@ class ScenarioManager:
             return mod
         self.player.food += mod.food        
         self.player.money += mod.money
-        self.player.distNext += mod.distance
-
+        #this needs to subtract. checkpointManager calls when this is 0, the scenarios return a positive distance. if this is addition, checkpoint manager will infinite loop
+        self.player.distNext -= mod.distance
         self.player.food += self.eat() #the player always eats. Handaled by default by the manager
-        input() # Stops the run of the game at each scenario TODO remove this
+        #input() # Stops the run of the game at each scenario TODO remove this
         return mod
     
     def callScenarioByName(self, scenarioName:str):
-
         if scenarioName in self.scenarios:
             return self.callScenario(self.scenarios[scenarioName])
         
