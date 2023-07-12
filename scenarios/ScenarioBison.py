@@ -1,20 +1,9 @@
 import random
-class ScenarioBison:
-    def __init__(self, gui, huntAdjust):
-        self.gui = gui
-        self.huntAdjust = huntAdjust
-        self.name = "Bison"
-        self.description = "You saw some wild buffalo in the distance. They didn't bother you and you traveled along your way. "
-        #self.choice = ["This text will describe choice1", "This text will describe choice 2"]
-        self.choice = [] #This scenario has no choice availabe
-        self.mod = self.Modifiers()
+import scenarioManager
 
-    class Modifiers:
-        def __init__(self):
-            self.food = 0  # Food consumed during the day
-            self.distance = 0 # Travveled distance during the day
-            self.money = 0  # No money spent
-            self.death = False  # Did not die
+class ScenarioBison(scenarioManager.Scenario):
+    def __init__(self, gui, player, name, description, choice):
+        super().__init__(gui, player, name, description, choice)
     
     def run(self):
         print(f"Running scenario {self.name}...")

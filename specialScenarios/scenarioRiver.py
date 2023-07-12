@@ -1,27 +1,11 @@
 import random
-import sys
-import os
-sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 import scenarioManager
-class scenarioRiver:
-    def __init__(self, gui, huntAdjust):
-        self.gui = gui
-        self.huntAdjust = huntAdjust
-        self.name = "River"
-        self.description = "You are at a river crossing, and you can ford the river or buy a ferry across."
-        self.choice = ["Ford River", "Buy Ferry"]
-        #self.choice = []
-        self.mod = self.Modifiers()
+
+class ScenarioRiver(scenarioManager.Scenario):
+    def __init__(self, gui, player, name, description, choice):
+        super().__init__(gui, player, name, description, choice)
         self.ferryCost=150
 
-    class Modifiers:
-        def __init__(self):
-            self.food = 0 - random.randint(3,5)  # Example attribute
-            self.distance = 0  # Example attribute
-            self.money = 0  # Example attribute
-            self.death = False  # Example attribute
-    def setPlayer(self,player):
-        self.player=player
     def run(self):
         print("Running scenario code...")
         #Eventually call openPopUp() to fetch the river choice from the GUI rather than terminal, and remove the terminal code
@@ -38,33 +22,29 @@ class scenarioRiver:
                     if(playerChoice == -1):
                         #debug option
                         break
+
+                    # Ford river Choice
                     if(playerChoice==1):
-                        #call random to see if a bad event happens
-                        badEvent = random.randint(1,20)
-                        #50% chance of bad thing happening
-                        if badEvent<=10:
-                            #do something bad
-                            return self.mod
-                        else:
+                        
+                        if random.randint(1,100) <= self.player.huntAdjust:
                             #successfully cross the river
+                            print("You succesfully crossed the river!")
                             self.mod.distance=-10
                             return self.mod
-                        loopTillValidInput=False
+                        else:
+                            #do something bad
+                            print("You drowned while crossing the river")
+                            self.mod.death = True #You died, game over.
+                            return self.mod
+
+                    # Pay for ferry choice Choice
                     elif(playerChoice==2):
                         if(self.player.character=="Merchant"):
-                            if(player.money>=self.ferryCost*.9):
-                                loopTillValidInput=False
-                                self.mod.money=-self.ferryCost*.9
-                                #cross the river
-                                self.mod.distance=-10
-                                return self.mod  
-                        else:
-                            if(self.player.money>=self.ferryCost):
-                                self.mod.money=-self.ferryCost
-                                loopTillValidInput=False
-                                #cross the river
-                                self.mod.distance=-10 
-                                return self.mod
+                            ferryCost = self.ferryCost*.9
+                            
+                        self.mod.money=-ferryCost                        
+                        self.mod.distance=-10
+                        return self.mod  
                     else:
                         print("Please try again.")
                 except Exception as exception:
@@ -85,7 +65,7 @@ class scenarioRiver:
                     return self.mod
             elif(choice==2):
                 if(self.player.character=="Merchant"):
-                    if(player.money>=self.ferryCost*.9):
+                    if(self.player.money>=self.ferryCost*.9):
                         loopTillValidInput=False
                         self.mod.money=-self.ferryCost*.9
                         self.mod.distance=-10
