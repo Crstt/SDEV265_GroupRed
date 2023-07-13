@@ -163,13 +163,10 @@ class StartGui(tk.Tk):
         buttons_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
         for choice in playerChoices:
             # generate a new button
-            print(choice)
-            print(playerChoices[choice].character)
             button1 = tk.Button(buttons_frame, text=playerChoices[choice].character, bg=self.accentColor, command=lambda choice=choice: self.createScenarioManager(playerChoices[choice]))       
             button1.pack(side="left", fill="both", expand=True) 
 
     def createScenarioManager(self,playerChoice):
-        print(playerChoice.character,playerChoice.money)
         self.scenarioManager = ScenarioManager(self,playerChoice)
         self.checkpointManagerInstance = CheckpointManager(createCheckpointList(),self.scenarioManager,playerChoice)
         
