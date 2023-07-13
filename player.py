@@ -52,5 +52,12 @@ def selectCharacter():
             c=i
             return choices[cKey[c]].character, choices[cKey[c]].money, choices[cKey[c]].food, choices[cKey[c]].huntAdjust, choices[cKey[c]].buyAdjust, choices[cKey[c]].distNext
         else: i += 1
-
-            
+def generatePlayerChoices():
+    filename = "characters.csv"
+    choices = {}
+    with open(filename, 'r') as csvfile:
+        for row in csv.reader(csvfile):
+            choices[row[0]] = Player(*row[1:])
+    
+    cKey = [*choices]
+    return choices

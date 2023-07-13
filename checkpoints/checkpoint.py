@@ -9,7 +9,7 @@ class Checkpoint:
             self.isTown = True
         self.distToNextCP = distToNextCP
         self.name=name
-        #self.image = PhotoImage(file=imgPath)
+        self.imgPath = imgPath
     
     def updateState(self):
         print("Updating checkpoint state...")

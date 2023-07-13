@@ -1,6 +1,6 @@
-from checkpoints import *
+from checkpoints.checkpoint import *
 from scenarioManager import *
-import tkinter as tk
+
 class CheckpointManager:
     # inputHoldVariable is to control the game while waiting for input, -1 is to hold and not do anything with it
     inputHoldVariable = -1
@@ -81,24 +81,34 @@ class CheckpointManager:
                 #TODO: when the GUI is ready call something to prompt for the amount of food
                 self.scenarioManager.callScenarioByName("buySupplies")
                 loopTillValidInput=False
-def returnEntryText():
-    inputString = promptField.get()
-    CheckpointManager.inputHoldVariable = int(inputString)
-    popupWindow.destroy()
-    return 
 
-def openFoodPopUp(self):
-    print("Opening popup...")
-    global popupWindow,promptField
-    popupWindow = tk.Tk()
-    popupWindow.wm_title("Prompt")
+def createCheckpointList():
+    #these locations can be found in the game mechanics doc
+    checkpointList = []
+    startCheckpoint = Checkpoint(False,20,"Start Place","Images/market/01.jpg")
+    checkpointList.append(startCheckpoint)
 
-    promptText=tk.Label(popupWindow,text="How much food to buy?")
-    promptText.pack(fill="x")
+    riverCheckpoint1 = Checkpoint(True,20,"River 1")
+    checkpointList.append(riverCheckpoint1)
 
-    promptField=tk.Entry(popupWindow)
-    promptField.pack(fill="x")
+    townCheckpoint1 = Checkpoint(False,20,"Python Junction")
+    checkpointList.append(townCheckpoint1)
 
-    confirmButton=tk.Button(popupWindow,text="close",command=returnEntryText)
-    confirmButton.pack(fill="x")
-    # Implement the logic to open a popup related to the scenario here
+    riverCheckpoint2 = Checkpoint(True,20,"River 2")
+    checkpointList.append(riverCheckpoint2)
+
+    townCheckpoint2 = Checkpoint(False,20,"Bear City")
+    checkpointList.append(townCheckpoint2)
+
+    riverCheckpoint3 = Checkpoint(True,20,"River 3")
+    checkpointList.append(riverCheckpoint3)
+
+    townCheckpoint3 = Checkpoint(False,20,"Gold Creek")
+    checkpointList.append(townCheckpoint3)
+
+    riverCheckpoint4 = Checkpoint(True,20,"River 4")
+    checkpointList.append(riverCheckpoint4)
+
+    finishCheckpoint = Checkpoint(False,0,"Finish")
+    checkpointList.append(finishCheckpoint)
+    return checkpointList
