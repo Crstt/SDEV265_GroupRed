@@ -4,10 +4,7 @@ import csv
 #from . import checkpointManager
 
 class Player:
-    miles = random.randint(16,32)
-    foodDaily = random.randint(12,15)
-
-    def __init__(self, character:str, money:int, food:int, huntAdjust:float, buyAudjust:float, distNext:int):
+    def __init__(self, character:str, money:int, food:int, huntAdjust:int, buyAudjust:int, distNext:int):
         self.character = character
         self.money = money
         self.food = food
@@ -31,8 +28,8 @@ def selectCharacter():
         if i == loopBoundry:
             i=0
         #create character description for display
-        hunt = str(float(choices[cKey[i]].huntAdjust) * 100)
-        buy = str(float(choices[cKey[i]].buyAdjust) * 100)
+        hunt = str(float(choices[cKey[i]].huntAdjust))
+        buy = str(float(choices[cKey[i]].buyAdjust))
         descriptionLabel = "The" + choices[cKey[i]].character + " starts with $" + choices[cKey[i]].money + ", and a " + hunt + " percent change to hunting as well as " + buy  +" percent change to buying costs."
         button1Label = "Choose " + choices[cKey[i]].character
         """
@@ -50,7 +47,7 @@ def selectCharacter():
         selection = input("what button do you click? b1 - b2  ")
         if selection == "b1":
             c=i
-            return choices[cKey[c]].character, int(choices[cKey[c]].money), int(choices[cKey[c]].food), float(choices[cKey[c]].huntAdjust), float(choices[cKey[c]].buyAdjust), int(choices[cKey[c]].distNext)
+            return choices[cKey[c]].character, int(choices[cKey[c]].money), int(choices[cKey[c]].food), int(choices[cKey[c]].huntAdjust), int(choices[cKey[c]].buyAdjust), int(choices[cKey[c]].distNext)
         else: i += 1
 
             
