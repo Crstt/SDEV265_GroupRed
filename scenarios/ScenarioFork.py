@@ -8,13 +8,8 @@ class ScenarioFork(scenarioManager.Scenario):
     def run(self, choice):
         print(f"Running scenario {self.name}...")
         print(self.description)
-<<<<<<< HEAD
 
         #choice = int(input("1 for forest or 2 for plains: "))
-=======
-        print("1 for forest or 2 for plains: ")
-        choice = int(input("1 for forest or 2 for plains: "))
->>>>>>> chris
         if choice == random.randint(1,2):
             if random.randint(1,100) <= self.player.huntAdjust:
                 self.mod.result = "You got lost. You did not travel much closer today."

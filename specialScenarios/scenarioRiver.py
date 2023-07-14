@@ -18,7 +18,6 @@ class ScenarioRiver(scenarioManager.Scenario):
         #if default choice of -1 is used, use terminal to poll choices
         #if choice isn't -1, then the input comes from a GUI selection and thus a specific effect can be done straight from the
 
-<<<<<<< HEAD
         #TODO add a check for if the player has enough money to buy the ferry
         if True:
             #print("You are at a river. What would you like to do?\n1-Attempt to ford the river\n2-Buy a ferry (150$)")
@@ -52,44 +51,6 @@ class ScenarioRiver(scenarioManager.Scenario):
                 self.mod.distance=-10
                 return self.mod  
             
-=======
-                    # Ford river Choice
-                    if(playerChoice==1):
-                        
-                        if random.randint(1,100) <= self.player.huntAdjust:
-                            #successfully cross the river
-                            print("You succesfully crossed the river!")
-                            self.mod.distance=10
-                            return self.mod
-                        else:
-                            #do something bad
-                            print("You drowned while crossing the river")
-                            self.mod.death = True #You died, game over.
-                            return self.mod
-
-                    # Pay for ferry choice Choice
-                    elif(playerChoice==2):
-                        if(self.player.character=="Merchant"):
-                            if(self.player.money>=self.ferryCost*.9):
-                                loopTillValidInput=False
-                                self.mod.money=-self.ferryCost*.9
-                                #cross the river
-                                self.mod.distance=10
-                                return self.mod  
-                        else:
-                            if(self.player.money>=self.ferryCost):
-                                self.mod.money=-self.ferryCost
-                                loopTillValidInput=False
-                                #cross the river
-                                self.mod.distance=10 
-                                return self.mod
-                    else:
-                        print("Please try again.")
-                except Exception as exception:
-                    #this is so the whole program doesnt crash when prompting for user input
-                    #do nothing so that the code can run
-                    num = 1
->>>>>>> chris
         else: #these choices are for when the gui has successfully prompted the user and the command line isnt needed 
             if(choice==1):
                 
