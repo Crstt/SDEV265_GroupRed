@@ -82,7 +82,6 @@ class ScenarioManager:
     
     def loadFromCsv(self, csv_path):
         scenarios_values_dict = {}
-
         with open(csv_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -138,7 +137,6 @@ class ScenarioManager:
                   
     
     def callScenarioByName(self, scenarioName:str):
-
         if scenarioName in self.scenarios:
             return self.callScenario(self.scenarios[scenarioName])
         
