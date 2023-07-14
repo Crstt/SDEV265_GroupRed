@@ -142,3 +142,5 @@ class ScenarioManager:
         
         if scenarioName in self.specialScenarios:
             return self.callScenario(self.specialScenarios[scenarioName])
+        
+        print(f"Scenario {scenarioName} not found")

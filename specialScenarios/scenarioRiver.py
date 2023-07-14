@@ -52,7 +52,7 @@ class ScenarioRiver(scenarioManager.Scenario):
                 return self.mod  
             
         else: #these choices are for when the gui has successfully prompted the user and the command line isnt needed 
-            if(choice==1):
+            if(choice==1): #code unreachable if the gui is working properly
                 
                 badEvent = random.randint(1,20)
                 #50% chance of bad thing happening

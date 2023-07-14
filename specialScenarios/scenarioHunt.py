@@ -18,7 +18,3 @@ class ScenarioHunt(scenarioManager.Scenario):
             print("The deer escaped. You did not get any food")
 
         return self.mod
-    
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here

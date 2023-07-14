@@ -27,9 +27,10 @@ class StartGui(tk.Tk):
 
         self.title("The Oregon Trail with Python(s)")
         self.configure(bg=self.bg)
+        Image
 
         # Load the image
-        image = self.resizeImage(Image.open("Images/landscape/01.jpg"))
+        image = self.resizeImage(PIL.Image.open("Images/landscape/01.jpg"))
 
         
         # Convert the image to Tkinter-compatible format
@@ -65,45 +66,9 @@ class StartGui(tk.Tk):
 
         button1.pack(side="left", fill="both", expand=True)
 
-        self.attributes("-fullscreen", True)
+        self.attributes("-fullscreen", True)        
 
-    def mainLogic(self):
-        #implement instance of player
-        self.player = Player(*selectCharacter())
-
-        # create a scenarioManager instance
-        self.scenarioManager = ScenarioManager(self, self.player)
-
-        checkpointList = []
-        startCheckpoint = TownCheckpoint(20,"Start")
-        checkpointList.append(startCheckpoint)
-
-        riverCheckpoint1 = RiverCheckpoint(20,"River 1")
-        checkpointList.append(riverCheckpoint1)
-
-        townCheckpoint1 = TownCheckpoint(20,"Python Junction")
-        checkpointList.append(townCheckpoint1)
-
-        riverCheckpoint2 = RiverCheckpoint(20,"River 2")
-        checkpointList.append(riverCheckpoint2)
-
-        townCheckpoint2 = TownCheckpoint(20,"Bear City")
-        checkpointList.append(townCheckpoint2)
-
-        riverCheckpoint3 = RiverCheckpoint(20,"River 3")
-        checkpointList.append(riverCheckpoint3)
-
-        townCheckpoint3 = TownCheckpoint(20,"Gold Creek")
-        checkpointList.append(townCheckpoint3)
-
-        riverCheckpoint4 = RiverCheckpoint(20,"River 4")
-        checkpointList.append(riverCheckpoint4)
-
-        finishCheckpoint = TownCheckpoint(0,"Finish")
-        checkpointList.append(finishCheckpoint)
-
-        self.checkpointManager = CheckpointManager(checkpointList, self.scenarioManager, self.player)
-        self.checkpointManager.nextScenario()
+        
     
     # this function applys a style to the buttons
     def styleButtons(self, button, colorOnHover, colorOnLeave):
@@ -209,9 +174,12 @@ class StartGui(tk.Tk):
         buttons_frame = tk.Frame(self, bg=self.bgSecondary)
         buttons_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
         #Travel on button
-        button1 = tk.Button(buttons_frame, text="Travel onwards", bg=self.accentColor, command=lambda: self.checkpointManagerInstance.townScenario(1))       
+        button1 = tk.Button(buttons_frame, text="Travel onwards", bg=self.accentColor, command=lambda: self.checkpointManagerInstance.townScenario(1))     
+        self.styleButtons(button1, self.accentColor, self.bg)  
         button1.pack(side="left", fill="both", expand=True) 
+        
         button2 = tk.Button(buttons_frame, text="Buy supplies", bg=self.accentColor, command=lambda: self.checkpointManagerInstance.townScenario(2))       
+        self.styleButtons(button2, self.accentColor, self.bg)
         button2.pack(side="left", fill="both", expand=True) 
         #Buy supplies button
         #3rd option button
@@ -252,10 +220,48 @@ class StartGui(tk.Tk):
         playerChoices=generatePlayerChoices()
         buttons_frame = tk.Frame(self, bg=self.bgSecondary)
         buttons_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
+        buttons = []
+        i = 0
         for choice in playerChoices:
-            # generate a new button
-            button1 = tk.Button(buttons_frame, text=playerChoices[choice].character, bg=self.accentColor, command=lambda choice=choice: self.createScenarioManager(playerChoices[choice]))       
-            button1.pack(side="left", fill="both", expand=True) 
+            # generate a new button            
+            buttons.append(tk.Button(buttons_frame, text=playerChoices[choice].character, bg=self.accentColor, command=lambda choice=choice: self.initPlayer(choice)))
+            self.styleButtons(buttons[-1], self.accentColor, self.bg)
+            buttons[-1].pack(side="left", fill="both", expand=True)
+            i += 1
+
+    def initPlayer(self, choice):
+        self.player = Player(*selectCharacter(choice))
+        self.scenarioManager = ScenarioManager(self, self.player)
+        checkpointList = []
+        startCheckpoint = Checkpoint(False,20,"Start Place")
+        checkpointList.append(startCheckpoint)
+
+        riverCheckpoint1 = Checkpoint(True,20,"River 1")
+        checkpointList.append(riverCheckpoint1)
+
+        townCheckpoint1 = Checkpoint(False,20,"Python Junction")
+        checkpointList.append(townCheckpoint1)
+
+        riverCheckpoint2 = Checkpoint(True,20,"River 2")
+        checkpointList.append(riverCheckpoint2)
+
+        townCheckpoint2 = Checkpoint(False,20,"Bear City")
+        checkpointList.append(townCheckpoint2)
+
+        riverCheckpoint3 = Checkpoint(True,20,"River 3")
+        checkpointList.append(riverCheckpoint3)
+
+        townCheckpoint3 = Checkpoint(False,20,"Gold Creek")
+        checkpointList.append(townCheckpoint3)
+
+        riverCheckpoint4 = Checkpoint(True,20,"River 4")
+        checkpointList.append(riverCheckpoint4)
+
+        finishCheckpoint = Checkpoint(False,0,"Finish")
+        checkpointList.append(finishCheckpoint)
+
+        self.checkpointManager = CheckpointManager(checkpointList, self.scenarioManager, self.player)
+        self.checkpointManager.nextScenario()
 
     def createScenarioManager(self,playerChoice):
         self.scenarioManager = ScenarioManager(self,playerChoice)
