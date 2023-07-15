@@ -10,16 +10,12 @@ import player
 import gui
 
 # create a gui instance
-root = gui.StartGui()
+root = gui.StartGui(debug=True)
 
-# create a player instance
-player = player.Player("Farmer",800, 100, 70, 0, 100)
 
-# create a scenarioManager instance
-scenarioManager = scenarioManager.ScenarioManager(root, player)
 
 def testSpecificScenarios():
-    if scenarioManager.callScenarioByName("Travel").death: return True
+    scenarioManager.callScenarioByName("Sickness")
     #if scenarioManager.callScenarioByName("River").death: return True
     #if scenarioManager.callScenarioByName("Fork").death: return True
     #if scenarioManager.callScenarioByName("Bison").death: return True
@@ -30,7 +26,9 @@ def testRandomScenarios(num):
         print(f"------------{i}------------")
         if scenarioManager.callRandomScenario().death: return True
         
-input("Press enter to start testing...")
+input("Select a character in the gui, and press enter to start testing...")
+
+scenarioManager = root.scenarioManager
 if testSpecificScenarios(): quit()
 
 #if testRandomScenarios(10): quit()

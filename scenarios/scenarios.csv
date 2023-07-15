@@ -3,4 +3,4 @@ Travel,Nothing happens today. You traveled one step closer to the next town and 
 Bison,You saw some wild buffalo in the distance. They didn't bother you and you traveled along your way. ,,
 Fork,There is a fork in the trail. Do you want to go right toward the forest or left toward the plains? ,Plains,Forest
 Berry,You found a wild berry patch. Should you collect and eat them?,Yes,No
-Sickness,You got sick and need to rest 1 extra day,,
+Sickness,You are sick today. You cannot travel and need to rest 1 extra day,,

@@ -9,12 +9,8 @@ class ScenarioTravel(scenarioManager.Scenario):
         print(f"Running scenario {self.name}...")
         print(self.description)
         
-        #negative distance so distToNextCP decreases
         self.mod.distance = random.randint(16, 32)
-        print(f"You traveled {self.mod.distance} miles today")
+        #print(f"You traveled {self.mod.distance} miles today")
         self.mod.result = f"You traveled {self.mod.distance} miles today"
         return self.mod    
     
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here

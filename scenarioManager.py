@@ -19,6 +19,7 @@ class Scenario:
             self.distance = 0  # Traveled distance during the day
             self.money = 0  # No money spent
             self.death = False  # Did not die
+            self.sick = False  # Did not get sick
             self.result = ""  # Result of the day
 
 class ScenarioManager:

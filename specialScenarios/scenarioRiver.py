@@ -11,7 +11,7 @@ class ScenarioRiver(scenarioManager.Scenario):
         self.ferryCost=150
 
     def run(self, choice):
-        print("Running scenario code...")
+        print(f"Running scenario {self.name}...")
         #Eventually call openPopUp() to fetch the river choice from the GUI rather than terminal, and remove the terminal code
 
         #choice = self.openPopUp()
@@ -28,13 +28,13 @@ class ScenarioRiver(scenarioManager.Scenario):
                 if random.randint(1,100) <= self.player.huntAdjust:
                     #successfully cross the river
                     self.mod.result = "You succesfully crossed the river!"
-                    print("You succesfully crossed the river!")
+                    #print("You succesfully crossed the river!")
                     self.mod.distance=-10
                     return self.mod
                 else:
                     #do something bad
                     self.mod.result = "You drowned while crossing the river"
-                    print("You drowned while crossing the river")
+                    #print("You drowned while crossing the river")
                     self.mod.death = True #You died, game over.
                     return self.mod
 
@@ -45,7 +45,7 @@ class ScenarioRiver(scenarioManager.Scenario):
                     ferryCost = ferryCost*.9
 
                 self.mod.result = "You paid "+str(ferryCost)+"$ to cross the river. You have "+str(self.player.money)+"$ left."
-                print("You paid "+str(ferryCost)+"$ to cross the river")
+                #print("You paid "+str(ferryCost)+"$ to cross the river")
                     
                 self.mod.money=-ferryCost                        
                 self.mod.distance=-10

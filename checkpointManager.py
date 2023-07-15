@@ -82,6 +82,14 @@ class CheckpointManager:
                 self.scenarioManager.callScenarioByName("buySupplies")
                 loopTillValidInput=False
 
+    def nextScenario(self):
+        print(f"Distance to the next scenario {self.player.distNext}")
+        if self.player.distNext <= 0:
+            self.nextCheckpoint()
+            print("Checkpoint reached, calling next checkpoint")
+        else:
+            self.scenarioManager.callRandomScenario()
+
 def createCheckpointList():
     #these locations can be found in the game mechanics doc
     checkpointList = []
@@ -113,10 +121,4 @@ def createCheckpointList():
     checkpointList.append(finishCheckpoint)
     return checkpointList
 
-    def nextScenario(self):
-        print(f"Distance to the next scenario {self.player.distNext}")
-        if self.player.distNext <= 0:
-            self.nextCheckpoint()
-            print("Checkpoint reached, calling next checkpoint")
-        else:
-            self.scenarioManager.callRandomScenario()
+    
