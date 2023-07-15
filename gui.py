@@ -302,8 +302,6 @@ class StartGui(tk.Tk):
         finishCheckpoint = Checkpoint(False,0,"Finish")
         checkpointList.append(finishCheckpoint)
 
-        checkpointList = [finishCheckpoint]
-
         self.checkpointManager = CheckpointManager(checkpointList, self.scenarioManager, self.player)
         self.defineScenarioGui()
         if not self.debug:
