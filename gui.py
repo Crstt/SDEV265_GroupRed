@@ -182,7 +182,7 @@ class StartGui(tk.Tk):
     def scenarioOutput(self, mod):
         self.text_label.config(text=mod.result)
         if mod.death == True:
-            self.button1.config(text="GAME OVER", command=lambda: messagebox.showinfo("DEVELOP GAME OVER LOGIC", "DEVELOP GAME OVER LOGIC"))
+            self.button1.config(text="GAME OVER", command=lambda: self.showDeathScreen())
         elif mod.sick:
             self.button1.config(text="Continue", command=lambda: self.scenarioManager.callScenarioByName('Sickness'))
         else:
@@ -302,13 +302,80 @@ class StartGui(tk.Tk):
         finishCheckpoint = Checkpoint(False,0,"Finish")
         checkpointList.append(finishCheckpoint)
 
+        checkpointList = [finishCheckpoint]
+
         self.checkpointManager = CheckpointManager(checkpointList, self.scenarioManager, self.player)
         self.defineScenarioGui()
         if not self.debug:
             self.checkpointManager.nextScenario()
 
-    def createScenarioManager(self,playerChoice):
-        self.scenarioManager = ScenarioManager(self,playerChoice)
-        self.checkpointManagerInstance = CheckpointManager(createCheckpointList(),self.scenarioManager,playerChoice)
+    #Functio that shows the end screen for sucessful completion
+    def showEndScreen(self):
+        global image_tk
+        #clear the gui
+        for ele in self.winfo_children():
+            ele.destroy()
+        #characters image
+        #Load the image
+        image = self.resizeImage(PIL.Image.open("Images/win/01.jpg"))
         
-        self.showTownCheckpoint(self.checkpointManagerInstance.currentCheckpoint)
+        # Convert the image to Tkinter-compatible format
+        image_tk = ImageTk.PhotoImage(image)
+        # Create a label to display the image
+        self.image_label = tk.Label(self, image=image_tk, bg=self.bg)
+        self.image_label.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        #prompt text
+        # Create a text section below the image
+        text_section = tk.Frame(self, bg=self.bgSecondary)
+        text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
+
+        # Create a label inside the text section to display the text
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text="Congratulations! You have made it to the end of the trail!", fg="white", bg=self.bgSecondary)
+        self.text_label.pack(fill="both", expand=True)
+
+        # Create a frame for the buttons below the text section
+        buttons_frame = tk.Frame(self, bg=self.bgSecondary)
+        buttons_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
+
+        # Create the buttons inside the frame
+        self.button1 = tk.Button(buttons_frame, text="Quit", bg=self.accentColor,command=lambda: self.quit())        
+
+        self.styleButtons(self.button1, self.accentColor, self.bg)
+
+        self.button1.pack(side="left", fill="both", expand=True)
+
+    #Function that shows the end screen for when the player dies
+    def showDeathScreen(self):
+        global image_tk
+        #clear the gui
+        for ele in self.winfo_children():
+            ele.destroy()
+        #characters image
+        #Load the image
+        image = self.resizeImage(PIL.Image.open("Images/death/01.jpg"))
+        
+        # Convert the image to Tkinter-compatible format
+        image_tk = ImageTk.PhotoImage(image)
+        # Create a label to display the image
+        self.image_label = tk.Label(self, image=image_tk, bg=self.bg)
+        self.image_label.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        #prompt text
+        # Create a text section below the image
+        text_section = tk.Frame(self, bg=self.bgSecondary)
+        text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
+
+        # Create a label inside the text section to display the text
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text="You have died! Better luck next time!", fg="white", bg=self.bgSecondary)
+        self.text_label.pack(fill="both", expand=True)
+
+        # Create a frame for the buttons below the text section
+        buttons_frame = tk.Frame(self, bg=self.bgSecondary)
+        buttons_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
+
+        # Create the buttons inside the frame
+        self.button1 = tk.Button(buttons_frame, text="Quit", bg=self.accentColor,command=lambda: self.quit())        
+
+        self.styleButtons(self.button1, self.accentColor, self.bg)
+
+        self.button1.pack(side="left", fill="both", expand=True)
+

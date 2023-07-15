@@ -23,10 +23,11 @@ class CheckpointManager:
         if(self.player.distNext <= 0):
             indexOfCurrentCheckpoint = self.checkpoints.index(self.currentCheckpoint)
             indexOfCurrentCheckpoint +=1
-            if(indexOfCurrentCheckpoint == len(self.checkpoints)-1):
+            if(indexOfCurrentCheckpoint == len(self.checkpoints)):
                 #final checkpoint, game is over
                 print("Game over!")
-                self.scenarioManager.callScenarioByName("Game Over")
+                self.scenarioManager.gui.showEndScreen()
+                #self.scenarioManager.callScenarioByName("Game Over")
             else:
                 self.currentCheckpoint=self.checkpoints[indexOfCurrentCheckpoint]
                 #player disToNextCP can be updated
