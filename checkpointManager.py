@@ -23,10 +23,11 @@ class CheckpointManager:
         if(self.player.distNext <= 0):
             indexOfCurrentCheckpoint = self.checkpoints.index(self.currentCheckpoint)
             indexOfCurrentCheckpoint +=1
-            if(indexOfCurrentCheckpoint == len(self.checkpoints)-1):
+            if(indexOfCurrentCheckpoint == len(self.checkpoints)):
                 #final checkpoint, game is over
                 print("Game over!")
-                self.scenarioManager.callScenarioByName("Game Over")
+                self.scenarioManager.gui.showEndScreen()
+                #self.scenarioManager.callScenarioByName("Game Over")
             else:
                 self.currentCheckpoint=self.checkpoints[indexOfCurrentCheckpoint]
                 #player disToNextCP can be updated
@@ -82,6 +83,14 @@ class CheckpointManager:
                 self.scenarioManager.callScenarioByName("buySupplies")
                 loopTillValidInput=False
 
+    def nextScenario(self):
+        print(f"Distance to the next scenario {self.player.distNext}")
+        if self.player.distNext <= 0:
+            self.nextCheckpoint()
+            print("Checkpoint reached, calling next checkpoint")
+        else:
+            self.scenarioManager.callRandomScenario()
+
 def createCheckpointList():
     #these locations can be found in the game mechanics doc
     checkpointList = []
@@ -112,3 +121,5 @@ def createCheckpointList():
     finishCheckpoint = Checkpoint(False,0,"Finish")
     checkpointList.append(finishCheckpoint)
     return checkpointList
+
+    
