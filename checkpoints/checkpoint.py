@@ -1,6 +1,6 @@
 from tkinter import *
 class Checkpoint:
-    def __init__(self,isRiver=True,distToNextCP=0,name="",imgPath=""):
+    def __init__(self,isRiver=True,distToNextCP=0,name="",imgPath="",foodCost=1):
         if(isRiver):
             self.isRiver = True
             self.isTown = False
@@ -10,6 +10,7 @@ class Checkpoint:
         self.distToNextCP = distToNextCP
         self.name=name
         self.imgPath = imgPath
+        self.foodCost=foodCost
     
     def updateState(self):
         print("Updating checkpoint state...")
