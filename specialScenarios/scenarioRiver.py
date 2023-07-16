@@ -1,5 +1,9 @@
+import sys
+import os
+sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 import random
 import scenarioManager
+
 
 class ScenarioRiver(scenarioManager.Scenario):
     def __init__(self, gui, player, name, description, choices):
@@ -7,7 +11,7 @@ class ScenarioRiver(scenarioManager.Scenario):
         self.ferryCost=150
 
     def run(self, choice):
-        print("Running scenario code...")
+        print(f"Running scenario {self.name}...")
         #Eventually call openPopUp() to fetch the river choice from the GUI rather than terminal, and remove the terminal code
 
         #choice = self.openPopUp()
@@ -24,13 +28,13 @@ class ScenarioRiver(scenarioManager.Scenario):
                 if random.randint(1,100) <= self.player.huntAdjust:
                     #successfully cross the river
                     self.mod.result = "You succesfully crossed the river!"
-                    print("You succesfully crossed the river!")
+                    #print("You succesfully crossed the river!")
                     self.mod.distance=-10
                     return self.mod
                 else:
                     #do something bad
                     self.mod.result = "You drowned while crossing the river"
-                    print("You drowned while crossing the river")
+                    #print("You drowned while crossing the river")
                     self.mod.death = True #You died, game over.
                     return self.mod
 
@@ -41,14 +45,14 @@ class ScenarioRiver(scenarioManager.Scenario):
                     ferryCost = ferryCost*.9
 
                 self.mod.result = "You paid "+str(ferryCost)+"$ to cross the river. You have "+str(self.player.money)+"$ left."
-                print("You paid "+str(ferryCost)+"$ to cross the river")
+                #print("You paid "+str(ferryCost)+"$ to cross the river")
                     
                 self.mod.money=-ferryCost                        
                 self.mod.distance=-10
                 return self.mod  
             
         else: #these choices are for when the gui has successfully prompted the user and the command line isnt needed 
-            if(choice==1):
+            if(choice==1): #code unreachable if the gui is working properly
                 
                 badEvent = random.randint(1,20)
                 #50% chance of bad thing happening
@@ -57,24 +61,22 @@ class ScenarioRiver(scenarioManager.Scenario):
                     return self.mod
                 else:
                     #successfully cross the river
-                    self.mod.distance=-10
+                    self.mod.distance=10
                     return self.mod
             elif(choice==2):
                 if(self.player.character=="Merchant"):
                     if(self.player.money>=self.ferryCost*.9):
                         loopTillValidInput=False
                         self.mod.money=-self.ferryCost*.9
-                        self.mod.distance=-10
+                        self.mod.distance=10
                         #cross the river
                         return self.mod  
                 else:
                     if(self.player.money>=self.ferryCost):
                         self.mod.money=-self.ferryCost
                         #cross the river
-                        self.mod.distance=-10 
+                        self.mod.distance=10 
                         return self.mod
 
     
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here
+    

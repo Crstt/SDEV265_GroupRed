@@ -19,6 +19,7 @@ class Scenario:
             self.distance = 0  # Traveled distance during the day
             self.money = 0  # No money spent
             self.death = False  # Did not die
+            self.sick = False  # Did not get sick
             self.result = ""  # Result of the day
 
 class ScenarioManager:
@@ -82,7 +83,6 @@ class ScenarioManager:
     
     def loadFromCsv(self, csv_path):
         scenarios_values_dict = {}
-
         with open(csv_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -138,9 +138,10 @@ class ScenarioManager:
                   
     
     def callScenarioByName(self, scenarioName:str):
-
         if scenarioName in self.scenarios:
             return self.callScenario(self.scenarios[scenarioName])
         
         if scenarioName in self.specialScenarios:
             return self.callScenario(self.specialScenarios[scenarioName])
+        
+        print(f"Scenario {scenarioName} not found")

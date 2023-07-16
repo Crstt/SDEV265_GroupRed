@@ -1,44 +1,44 @@
 import sys
 import os
-sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
+#sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 from checkpointManager import *
-from checkpoints.town import *
-from checkpoints.river import *
+from checkpoints.checkpoint import *
 from gui import *
 from player import *
 
 #initialization of a checkpoint manager. These checkpoints are based on the design doc. Not intended for final use but may be suitable with parameter changes
 #these locations can be found in the game mechanics doc
 checkpointList = []
-startCheckpoint = TownCheckpoint(20,"Start")
+startCheckpoint = Checkpoint(False,20,"Start Place")
 checkpointList.append(startCheckpoint)
 
-riverCheckpoint1 = RiverCheckpoint(20,"River 1")
+riverCheckpoint1 = Checkpoint(True,20,"River 1")
 checkpointList.append(riverCheckpoint1)
 
-townCheckpoint1 = TownCheckpoint(20,"Python Junction")
+townCheckpoint1 = Checkpoint(False,20,"Python Junction")
 checkpointList.append(townCheckpoint1)
 
-riverCheckpoint2 = RiverCheckpoint(20,"River 2")
+riverCheckpoint2 = Checkpoint(True,20,"River 2")
 checkpointList.append(riverCheckpoint2)
 
-townCheckpoint2 = TownCheckpoint(20,"Bear City")
+townCheckpoint2 = Checkpoint(False,20,"Bear City")
 checkpointList.append(townCheckpoint2)
 
-riverCheckpoint3 = RiverCheckpoint(20,"River 3")
+riverCheckpoint3 = Checkpoint(True,20,"River 3")
 checkpointList.append(riverCheckpoint3)
 
-townCheckpoint3 = TownCheckpoint(20,"Gold Creek")
+townCheckpoint3 = Checkpoint(False,20,"Gold Creek")
 checkpointList.append(townCheckpoint3)
 
-riverCheckpoint4 = RiverCheckpoint(20,"River 4")
+riverCheckpoint4 = Checkpoint(True,20,"River 4")
 checkpointList.append(riverCheckpoint4)
 
-finishCheckpoint = TownCheckpoint(0,"Finish")
+finishCheckpoint = Checkpoint(False,0,"Finish")
 checkpointList.append(finishCheckpoint)
 
+
 player = Player("Farmer",800, 100, 0.7, 0, 100)
-notARealGui = ""
+notARealGui = "StartGui()"
 scenarioManager = ScenarioManager(notARealGui,player)
 
 checkpointManagerInstance = CheckpointManager(checkpointList,scenarioManager,player)
@@ -57,7 +57,7 @@ print("calling nextCheckpoint()")
 checkpointManagerInstance.nextCheckpoint()
 #should be 20, loops over into the new river checkpoint 
 print("distNext 3:" ,player.distNext)
-print(checkpointManagerInstance.currentCheckpoint.name)
+print("current checkpoint:",checkpointManagerInstance.currentCheckpoint.name)
 #should be 650 since the player is a farmer
 print("player money:",player.money)
 
