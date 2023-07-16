@@ -112,6 +112,8 @@ class ScenarioManager:
         self.gui.scenarioWindow(scenario)
     
     def guiCallScenario(self, scenario, choice = -1):
+
+        scenario.mod = Scenario.Modifiers()
         mod = scenario.run(choice)
         
         self.player.food += mod.food        

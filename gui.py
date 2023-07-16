@@ -180,16 +180,17 @@ class StartGui(tk.Tk):
 
     # Function that allows to updates the window with the result of the scenario
     def scenarioOutput(self, mod):
-        self.text_label.config(text=mod.result)
+        self.text_label.config(text=mod.result+"\n What do you want to do tomorrow?")
+        self.button2.config(text="", command='')
+        self.button2.config(state="disabled")
         if mod.death == True:
             self.button1.config(text="GAME OVER", command=lambda: self.showDeathScreen())
         elif mod.sick:
             self.button1.config(text="Continue", command=lambda: self.scenarioManager.callScenarioByName('Sickness'))
         else:
-            self.button1.config(text="Continue", command=lambda: self.checkpointManager.nextScenario())
-            
-        self.button2.config(text="", command='')
-        self.button2.config(state="disabled")
+            self.button1.config(text="Travel", command=lambda: self.checkpointManager.nextScenario())            
+            self.button2.config(text="Hunt", command=lambda: self.scenarioManager.callScenarioByName('Hunt'))
+            self.button2.config(state="normal")
 
     def showTownCheckpoint(self,checkpoint):
         global image_tk
