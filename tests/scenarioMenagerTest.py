@@ -15,23 +15,27 @@ root = gui.StartGui(debug=True)
 
 
 def testSpecificScenarios():
-    scenarioManager.callScenarioByName("Sickness")
-    #if scenarioManager.callScenarioByName("River").death: return True
-    #if scenarioManager.callScenarioByName("Fork").death: return True
-    #if scenarioManager.callScenarioByName("Bison").death: return True
+    runAndPrint("Bison")
+    runAndPrint("Sickness")
+    runAndPrint("Travel")
+    runAndPrint("Travel")
+    return True
 
+def runAndPrint(scenarioName):
+    scenarioManager.callScenarioByName(scenarioName)
+    input("After running scenario in the GUI press enter to view results...")
+    if scenarioName in scenarioManager.scenarios:
+        mod = scenarioManager.scenarios[scenarioName].mod
+        
+    if scenarioName in scenarioManager.specialScenarios:
+        mod = scenarioManager.specialScenarios[scenarioName].mod
 
-def testRandomScenarios(num):
-    for i in range(1,num + 1):
-        print(f"------------{i}------------")
-        if scenarioManager.callRandomScenario().death: return True
+    mod.printMods()
         
 input("Select a character in the gui, and press enter to start testing...")
 
 scenarioManager = root.scenarioManager
 if testSpecificScenarios(): quit()
-
-#if testRandomScenarios(10): quit()
 
 
 
