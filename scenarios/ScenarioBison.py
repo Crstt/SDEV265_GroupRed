@@ -11,5 +11,5 @@ class ScenarioBison(scenarioManager.Scenario):
         
         self.mod.distance = random.randint(16,32)
         self.mod.result = f"You travveled {self.mod.distance} miles today"
-        print(f"You travveled {self.mod.distance} miles today")
+        #print(f"You travveled {self.mod.distance} miles today")
         return self.mod 
