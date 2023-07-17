@@ -18,7 +18,7 @@ class ScenarioBerry(scenarioManager.Scenario):
             else:
                 self.mod.result = "You decided to collect the berries."
                 print("You collected the berries. Your food supply has been adjusted.")
-                self.mod.food += random.randint(3,5)
+                self.mod.food += random.randint(10,25)
 
             
         else:
