@@ -1,6 +1,8 @@
 import random
 import scenarioManager
-
+import sys
+import os
+sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 class ScenarioBeggar(scenarioManager.Scenario):
     def __init__(self, gui, player, name, description, choices):
         super().__init__(gui, player, name, description, choices)
