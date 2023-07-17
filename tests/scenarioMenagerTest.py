@@ -10,29 +10,32 @@ import player
 import gui
 
 # create a gui instance
-root = gui.StartGui()
+root = gui.StartGui(debug=True)
 
-# create a player instance
-player = player.Player("Farmer",800, 100, 70, 0, 100)
 
-# create a scenarioManager instance
-scenarioManager = scenarioManager.ScenarioManager(root, player)
 
 def testSpecificScenarios():
-    if scenarioManager.callScenarioByName("Travel").death: return True
-    if scenarioManager.callScenarioByName("River").death: return True
-    if scenarioManager.callScenarioByName("Fork").death: return True
-    if scenarioManager.callScenarioByName("Bison").death: return True
+    runAndPrint("Bison")
+    runAndPrint("Sickness")
+    runAndPrint("Travel")
+    runAndPrint("Travel")
+    return True
 
-
-def testRandomScenarios(num):
-    for i in range(1,num + 1):
-        print(f"------------{i}------------")
-        if scenarioManager.callRandomScenario().death: return True
+def runAndPrint(scenarioName):
+    scenarioManager.callScenarioByName(scenarioName)
+    input("After running scenario in the GUI press enter to view results...")
+    if scenarioName in scenarioManager.scenarios:
+        mod = scenarioManager.scenarios[scenarioName].mod
         
-#if testSpecificScenarios(): quit()
+    if scenarioName in scenarioManager.specialScenarios:
+        mod = scenarioManager.specialScenarios[scenarioName].mod
 
-if testRandomScenarios(10): quit()
+    mod.printMods()
+        
+input("Select a character in the gui, and press enter to start testing...")
+
+scenarioManager = root.scenarioManager
+if testSpecificScenarios(): quit()
 
 
 

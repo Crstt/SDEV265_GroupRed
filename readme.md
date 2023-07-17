@@ -36,7 +36,7 @@ To play the Oregon Trail game, follow these steps:
 
 ## Requirements
 
-- Python 3.7 or above
+- Python 3.0 or above
 
 ## License
 
