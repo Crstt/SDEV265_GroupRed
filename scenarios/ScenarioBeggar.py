@@ -1,3 +1,6 @@
+import sys
+import os
+#sys.path[0] = os.path.dirname(sys.path[0]) # Set path to the parent directory
 import random
 import scenarioManager
 import sys
