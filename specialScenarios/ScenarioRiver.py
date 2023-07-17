@@ -37,11 +37,9 @@ class ScenarioRiver(scenarioManager.Scenario):
                 ferryCost = self.ferryCost
                 if(self.player.character=="Merchant"):
                     ferryCost = ferryCost*.9
-
-                self.mod.result = "You paid "+str(ferryCost)+"$ to cross the river. You have "+str(self.player.money)+"$ left."
-                #print("You paid "+str(ferryCost)+"$ to cross the river")
-                    
-                self.mod.money=-ferryCost                        
+                self.mod.money=-ferryCost    
+                self.mod.result = "You paid "+str(ferryCost)+"$ to cross the river. You have "+str(self.player.money-ferryCost)+"$ left."
+                #print("You paid "+str(ferryCost)+"$ to cross the river")        
                 self.mod.distance=-10
                 return self.mod  
             
