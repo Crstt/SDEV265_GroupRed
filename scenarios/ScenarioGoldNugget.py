@@ -5,7 +5,7 @@ class ScenarioFoundNugget(scenarioManager.Scenario):
     def __init__(self, gui, player, name, description, choice):
         super().__init__(gui, player, name, description, choice)
 
-    def run(self):
+    def run(self, choice):
         print(f"Running scenario {self.name}...")
         print(self.description)
         
