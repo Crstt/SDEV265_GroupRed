@@ -10,7 +10,7 @@ class ScenarioFoundFood(scenarioManager.Scenario):
         print(self.description)
         
         self.mod.distance = random.randint(3, 5)
-        print("You found edible dead pythons in your food supplies. You gained  {self.mod.distance} food units.")
+        self.mod.result = f"You found edible dead pythons in your food supplies. You gained {self.mod.distance} food units."
         return self.mod    
     
     def openPopUp(self):

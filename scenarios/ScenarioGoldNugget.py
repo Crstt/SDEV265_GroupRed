@@ -10,7 +10,7 @@ class ScenarioFoundNugget(scenarioManager.Scenario):
         print(self.description)
         
         self.mod.distance = random.randint(75, 125)
-        print(f"You found a gold nugget in the stream. ${self.mod.distance} has been added to your cash")
+        self.mod.result = f"You found a gold nugget in the stream. ${self.mod.distance} has been added to your cash"
         return self.mod    
     
     def openPopUp(self):
