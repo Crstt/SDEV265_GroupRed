@@ -50,7 +50,8 @@ class StartGui(tk.Tk):
         text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         # Create a label inside the text section to display the text
-        self.text_label = tk.Label(text_section, font=("Arial", 22), text="Your Text", fg="white", bg=self.bgSecondary)
+        welcomeText = """Welcome to The Oregon Trail with Python(s)!"""
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text=welcomeText, fg="white", bg=self.bgSecondary)
         self.text_label.pack(fill="both", expand=True)
 
         # Create a frame for the buttons below the text section
@@ -147,13 +148,18 @@ class StartGui(tk.Tk):
     
     def updateImage(self, imageName):
         global image_tk
+
+        path = f"scenarios/Scenario{imageName}/01.jpg"
         
-        if os.path.exists(f"scenarios/Scenario{imageName}/01.jpg"):
-            image = self.resizeImage(PIL.Image.open(f"scenarios/Scenario{imageName}/01.jpg"))
-            image_tk = ImageTk.PhotoImage(image)
-            self.image_label.config(image=image_tk)
-        else:
-            print("Image not found")
+        if not os.path.exists(path):           
+            path = f"specialScenarios/Scenario{imageName}/01.jpg"
+            if not os.path.exists(path): 
+                print("Image not found")
+                return
+        
+        image = self.resizeImage(PIL.Image.open(path))
+        image_tk = ImageTk.PhotoImage(image)
+        self.image_label.config(image=image_tk)
 
     # Function that allows to update main window with the option of two buttons and a description
     def scenarioWindow(self,scenario):
@@ -180,14 +186,16 @@ class StartGui(tk.Tk):
 
     # Function that allows to updates the window with the result of the scenario
     def scenarioOutput(self, mod):
-        self.text_label.config(text=mod.result+"\n What do you want to do tomorrow?")
+        
+        self.text_label.config(text=mod.result)
         self.button2.config(text="", command='')
         self.button2.config(state="disabled")
         if mod.death == True:
             self.button1.config(text="GAME OVER", command=lambda: self.showDeathScreen())
         elif mod.sick:
             self.button1.config(text="Continue", command=lambda: self.scenarioManager.callScenarioByName('Sickness'))
-        else:
+        else:     
+            self.text_label.config(text=mod.result+"\n What do you want to do tomorrow?")       
             self.button1.config(text="Travel", command=lambda: self.checkpointManager.nextScenario())            
             self.button2.config(text="Hunt", command=lambda: self.scenarioManager.callScenarioByName('Hunt'))
             self.button2.config(state="normal")
