@@ -22,6 +22,14 @@ class Scenario:
             self.sick = False  # Did not get sick
             self.result = ""  # Result of the day
 
+        def printMods(self):
+            print(f"Food: {self.food}")
+            print(f"Distance: {self.distance}")
+            print(f"Money: {self.money}")
+            print(f"Death: {self.death}")
+            print(f"Sick: {self.sick}")
+            print(f"Result: {self.result}")
+
 class ScenarioManager:
     #creates a player object that every scenario can refer to without needing to pass it to the constructor
     def __init__(self, gui, player):
@@ -112,6 +120,8 @@ class ScenarioManager:
         self.gui.scenarioWindow(scenario)
     
     def guiCallScenario(self, scenario, choice = -1):
+
+        scenario.mod = Scenario.Modifiers()
         mod = scenario.run(choice)
         
         self.player.food += mod.food        
@@ -135,6 +145,7 @@ class ScenarioManager:
                 mod.result += f"\nYou ate and used {-ateFood} pounds of food. You now have {self.player.food} pounds of food left."
 
         self.gui.scenarioOutput(mod)
+        return mod
                   
     
     def callScenarioByName(self, scenarioName:str):
