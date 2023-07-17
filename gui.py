@@ -373,6 +373,13 @@ class StartGui(tk.Tk):
         # Convert the image to Tkinter-compatible format
         image_tk = ImageTk.PhotoImage(image)
         # Create a label to display the image
+
+        self.grid_rowconfigure(0, weight=4)  # 50% vertical space
+        self.grid_rowconfigure(1, weight=2)  # 20% vertical space
+        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+
+
         self.image_label = tk.Label(self, image=image_tk, bg=self.bg)
         self.image_label.grid(row=0, column=0, columnspan=2, sticky="nsew")
         #prompt text
@@ -385,16 +392,17 @@ class StartGui(tk.Tk):
         self.text_label.pack(fill="both", expand=True)
 
         #create the text entry field
-        textField = tk.Entry(self)
-        textField.grid(row=2, column=0, columnspan=2, sticky="nsew")
+        textField = tk.Entry(self, font=("Arial", 22), justify='center')
+        textField.grid(row=2, column=0, columnspan=1, sticky="nsew")
+        
 
         #create a button to confirm and buy the food
         purchaseButton = tk.Button(self,text="Purchase", bg=self.accentColor, command=lambda: purchaseFood(self,textField))
-        purchaseButton.grid(row=3, column=0, columnspan=2, sticky="nsew")
-        self.grid_rowconfigure(0, weight=4)  # 50% vertical space
-        self.grid_rowconfigure(1, weight=2)  # 20% vertical space
-        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
-        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+        self.styleButtons(purchaseButton, self.accentColor, self.bg)  
+        purchaseButton.grid(row=2, column=1, columnspan=1, sticky="nsew")
+
+        textField.focus()
+        
 def purchaseFood(self,textField):
     
     amount = int(textField.get())
