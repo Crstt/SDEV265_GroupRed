@@ -4,12 +4,13 @@ from scenarioManager import *
 class CheckpointManager:
     # inputHoldVariable is to control the game while waiting for input, -1 is to hold and not do anything with it
     inputHoldVariable = -1
-    def __init__(self, checkpoints,scenarioManager,player):
+    def __init__(self, checkpoints,scenarioManager,player,gui):
         self.checkpoints = checkpoints
         #to track where we're at, the state of the player within the checkpoints
         self.currentCheckpoint = checkpoints[0]
         self.scenarioManager = scenarioManager
         self.player = player
+        self.gui=gui
 
         #cost of ferry, Merchant pays .9* as much, scenarios currently use magic numbers for the cost
         self.ferryCost=150
@@ -39,7 +40,7 @@ class CheckpointManager:
                     self.scenarioManager.callScenarioByName("River")
                     self.player.distNext = self.currentCheckpoint.distToNextCP
                 else:
-                    self.townScenario()
+                    self.gui.showTownCheckpoint(self.currentCheckpoint)
                     self.player.distNext = self.currentCheckpoint.distToNextCP
                 
         else:
@@ -94,31 +95,31 @@ class CheckpointManager:
 def createCheckpointList():
     #these locations can be found in the game mechanics doc
     checkpointList = []
-    startCheckpoint = Checkpoint(False,20,"Start Place","Images/market/01.jpg")
+    startCheckpoint = Checkpoint(False,20,"Start Place",imgPath="Images/market/01.jpg",foodCost=1)
     checkpointList.append(startCheckpoint)
 
     riverCheckpoint1 = Checkpoint(True,20,"River 1")
     checkpointList.append(riverCheckpoint1)
 
-    townCheckpoint1 = Checkpoint(False,20,"Python Junction")
+    townCheckpoint1 = Checkpoint(False,20,"Python Junction",imgPath="Images/market/02.jpg",foodCost=1.5)
     checkpointList.append(townCheckpoint1)
 
     riverCheckpoint2 = Checkpoint(True,20,"River 2")
     checkpointList.append(riverCheckpoint2)
 
-    townCheckpoint2 = Checkpoint(False,20,"Bear City")
+    townCheckpoint2 = Checkpoint(False,20,"Bear City",imgPath="Images/market/03.jpg",foodCost=2)
     checkpointList.append(townCheckpoint2)
 
     riverCheckpoint3 = Checkpoint(True,20,"River 3")
     checkpointList.append(riverCheckpoint3)
 
-    townCheckpoint3 = Checkpoint(False,20,"Gold Creek")
+    townCheckpoint3 = Checkpoint(False,20,"Gold Creek",imgPath="Images/market/04.jpg",foodCost=2.5)
     checkpointList.append(townCheckpoint3)
 
     riverCheckpoint4 = Checkpoint(True,20,"River 4")
     checkpointList.append(riverCheckpoint4)
 
-    finishCheckpoint = Checkpoint(False,0,"Finish")
+    finishCheckpoint = Checkpoint(False,0,"Mount Hood","Images/landscape/05.jpg",foodCost=3)
     checkpointList.append(finishCheckpoint)
     return checkpointList
 
