@@ -15,10 +15,10 @@ root = gui.StartGui(debug=True)
 
 
 def testSpecificScenarios():
-    runAndPrint("Bison")
-    runAndPrint("Sickness")
-    runAndPrint("Travel")
-    runAndPrint("Travel")
+    runAndPrint("Travelers")
+    runAndPrint("Travelers")
+    runAndPrint("Travelers")
+    runAndPrint("Travelers")
     return True
 
 def runAndPrint(scenarioName):
