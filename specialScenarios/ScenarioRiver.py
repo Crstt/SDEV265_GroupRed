@@ -12,24 +12,18 @@ class ScenarioRiver(scenarioManager.Scenario):
 
     def run(self, choice):
         print(f"Running scenario {self.name}...")
-        #Eventually call openPopUp() to fetch the river choice from the GUI rather than terminal, and remove the terminal code
-
-        #choice = self.openPopUp()
-        #if default choice of -1 is used, use terminal to poll choices
-        #if choice isn't -1, then the input comes from a GUI selection and thus a specific effect can be done straight from the
 
         #TODO add a check for if the player has enough money to buy the ferry
         if True:
-            #print("You are at a river. What would you like to do?\n1-Attempt to ford the river\n2-Buy a ferry (150$)")
             
             # Ford river Choice
             if(choice==1):
-                
                 if random.randint(1,100) <= self.player.huntAdjust:
                     #successfully cross the river
                     self.mod.result = "You succesfully crossed the river!"
                     #print("You succesfully crossed the river!")
                     self.mod.distance=-10
+                    self.mod.money=0
                     return self.mod
                 else:
                     #do something bad
@@ -51,32 +45,5 @@ class ScenarioRiver(scenarioManager.Scenario):
                 self.mod.distance=-10
                 return self.mod  
             
-        else: #these choices are for when the gui has successfully prompted the user and the command line isnt needed 
-            if(choice==1): #code unreachable if the gui is working properly
-                
-                badEvent = random.randint(1,20)
-                #50% chance of bad thing happening
-                if badEvent<=10:
-                    #do something bad
-                    return self.mod
-                else:
-                    #successfully cross the river
-                    self.mod.distance=10
-                    return self.mod
-            elif(choice==2):
-                if(self.player.character=="Merchant"):
-                    if(self.player.money>=self.ferryCost*.9):
-                        loopTillValidInput=False
-                        self.mod.money=-self.ferryCost*.9
-                        self.mod.distance=10
-                        #cross the river
-                        return self.mod  
-                else:
-                    if(self.player.money>=self.ferryCost):
-                        self.mod.money=-self.ferryCost
-                        #cross the river
-                        self.mod.distance=10 
-                        return self.mod
-
     
     

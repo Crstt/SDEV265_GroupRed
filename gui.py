@@ -195,14 +195,15 @@ class StartGui(tk.Tk):
     def showTownCheckpoint(self,checkpoint):
         global image_tk
         #takes a town checkpoint and makes a window with the options
-        deleteVar = 1
         #clear the gui
         for ele in self.winfo_children():
             ele.destroy()
 
         #characters image
         #Load the image
-        image = self.resizeImage(PIL.Image.open(self.checkpointManagerInstance.currentCheckpoint.imgPath))
+        image =PIL.Image.open(self.checkpointManager.currentCheckpoint.imgPath)
+        
+        image = self.resizeImage(image)
         
         # Convert the image to Tkinter-compatible format
         image_tk = ImageTk.PhotoImage(image)
@@ -215,7 +216,7 @@ class StartGui(tk.Tk):
         text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         # Create a label inside the text section to display the text
-        self.text_label = tk.Label(text_section, font=("Arial", 22), text=f"You are at {self.checkpointManagerInstance.currentCheckpoint.name}.What would you like to do?", fg="white", bg=self.bgSecondary)
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text=f"You are at {self.checkpointManager.currentCheckpoint.name}.\nYou have {self.player.food} pounds of food, and {self.player.money} dollars. \nWhat would you like to do?", fg="white", bg=self.bgSecondary)
         self.text_label.pack(fill="both", expand=True)
 
         #player choice selection   
@@ -224,11 +225,11 @@ class StartGui(tk.Tk):
         buttons_frame = tk.Frame(self, bg=self.bgSecondary)
         buttons_frame.grid(row=2, column=0, columnspan=2, sticky="nsew")
         #Travel on button
-        self.button1 = tk.Button(buttons_frame, text="Travel onwards", bg=self.accentColor, command=lambda: self.checkpointManagerInstance.townScenario(1))     
+        self.button1 = tk.Button(buttons_frame, text="Travel onwards", bg=self.accentColor, command=lambda: self.checkpointManager.townScenario(1))     
         self.styleButtons(self.button1, self.accentColor, self.bg)  
         self.button1.pack(side="left", fill="both", expand=True) 
         
-        self.button2 = tk.Button(buttons_frame, text="Buy supplies", bg=self.accentColor, command=lambda: self.checkpointManagerInstance.townScenario(2))       
+        self.button2 = tk.Button(buttons_frame, text="Buy supplies", bg=self.accentColor, command=lambda: self.buyFoodScreen())       
         self.styleButtons(self.button2, self.accentColor, self.bg)
         self.button2.pack(side="left", fill="both", expand=True) 
         #Buy supplies button
@@ -255,7 +256,7 @@ class StartGui(tk.Tk):
         text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         # Create a label inside the text section to display the text
-        self.text_label = tk.Label(text_section, font=("Arial", 22), text="What is your background? Bankers have 2000$, Merchants 1500$, and Farmers 1000$. However, farmers are the most skilled at surviving off the land, and Bankers are the least skilled. ", fg="white", bg=self.bgSecondary)
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text="What is your background? Bankers have 2000$, Merchants 1500$, and Farmers 1000$.\nHowever, farmers are the most skilled at surviving off the land, and Bankers are the least skilled. ", fg="white", bg=self.bgSecondary)
         self.text_label.pack(fill="both", expand=True)
 
         #player choice selection   
@@ -275,35 +276,9 @@ class StartGui(tk.Tk):
     def initPlayer(self, choice):
         self.player = Player(*selectCharacter(choice))
         self.scenarioManager = ScenarioManager(self, self.player)
-        checkpointList = []
-        startCheckpoint = Checkpoint(False,20,"Start Place")
-        checkpointList.append(startCheckpoint)
+        checkpointList = createCheckpointList()
 
-        riverCheckpoint1 = Checkpoint(True,20,"River 1")
-        checkpointList.append(riverCheckpoint1)
-
-        townCheckpoint1 = Checkpoint(False,20,"Python Junction")
-        checkpointList.append(townCheckpoint1)
-
-        riverCheckpoint2 = Checkpoint(True,20,"River 2")
-        checkpointList.append(riverCheckpoint2)
-
-        townCheckpoint2 = Checkpoint(False,20,"Bear City")
-        checkpointList.append(townCheckpoint2)
-
-        riverCheckpoint3 = Checkpoint(True,20,"River 3")
-        checkpointList.append(riverCheckpoint3)
-
-        townCheckpoint3 = Checkpoint(False,20,"Gold Creek")
-        checkpointList.append(townCheckpoint3)
-
-        riverCheckpoint4 = Checkpoint(True,20,"River 4")
-        checkpointList.append(riverCheckpoint4)
-
-        finishCheckpoint = Checkpoint(False,0,"Finish")
-        checkpointList.append(finishCheckpoint)
-
-        self.checkpointManager = CheckpointManager(checkpointList, self.scenarioManager, self.player)
+        self.checkpointManager = CheckpointManager(checkpointList, self.scenarioManager, self.player,self)
         self.defineScenarioGui()
         if not self.debug:
             self.checkpointManager.nextScenario()
@@ -377,4 +352,46 @@ class StartGui(tk.Tk):
         self.styleButtons(self.button1, self.accentColor, self.bg)
 
         self.button1.pack(side="left", fill="both", expand=True)
+    
+    def buyFoodScreen(self):
+        global image_tk
+        #clear the gui
+        for ele in self.winfo_children():
+            ele.destroy()
+        #characters image
+        #Load the image
+        image = self.resizeImage(PIL.Image.open("Images/characterSelection/03.jpg"))
+        
+        # Convert the image to Tkinter-compatible format
+        image_tk = ImageTk.PhotoImage(image)
+        # Create a label to display the image
+        self.image_label = tk.Label(self, image=image_tk, bg=self.bg)
+        self.image_label.grid(row=0, column=0, columnspan=2, sticky="nsew")
+        #prompt text
+        # Create a text section below the image
+        text_section = tk.Frame(self, bg=self.bgSecondary)
+        text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
+        # Create a label inside the text section to display the text
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text=f"How much food would you like to buy? 1 Pound is {self.checkpointManager.currentCheckpoint.foodCost}$.", fg="white", bg=self.bgSecondary)
+        self.text_label.pack(fill="both", expand=True)
+
+        #create the text entry field
+        textField = tk.Entry(self)
+        textField.grid(row=2, column=0, columnspan=2, sticky="nsew")
+
+        #create a button to confirm and buy the food
+        purchaseButton = tk.Button(self,text="Purchase", bg=self.accentColor, command=lambda: purchaseFood(self,textField))
+        purchaseButton.grid(row=3, column=0, columnspan=2, sticky="nsew")
+        self.grid_rowconfigure(0, weight=4)  # 50% vertical space
+        self.grid_rowconfigure(1, weight=2)  # 20% vertical space
+        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+def purchaseFood(self,textField):
+    
+    amount = int(textField.get())
+    if(self.player.money>=amount*self.checkpointManager.currentCheckpoint.foodCost):
+        self.player.food += amount
+        self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost
+    self.showTownCheckpoint(self.checkpointManager.currentCheckpoint)
+    
