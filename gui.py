@@ -50,7 +50,8 @@ class StartGui(tk.Tk):
         text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         # Create a label inside the text section to display the text
-        self.text_label = tk.Label(text_section, font=("Arial", 22), text="Your Text", fg="white", bg=self.bgSecondary)
+        welcomeText = """Welcome to The Oregon Trail with Python(s)!"""
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text=welcomeText, fg="white", bg=self.bgSecondary)
         self.text_label.pack(fill="both", expand=True)
 
         # Create a frame for the buttons below the text section
@@ -147,13 +148,18 @@ class StartGui(tk.Tk):
     
     def updateImage(self, imageName):
         global image_tk
+
+        path = f"scenarios/Scenario{imageName}/01.jpg"
         
-        if os.path.exists(f"scenarios/Scenario{imageName}/01.jpg"):
-            image = self.resizeImage(PIL.Image.open(f"scenarios/Scenario{imageName}/01.jpg"))
-            image_tk = ImageTk.PhotoImage(image)
-            self.image_label.config(image=image_tk)
-        else:
-            print("Image not found")
+        if not os.path.exists(path):           
+            path = f"specialScenarios/Scenario{imageName}/01.jpg"
+            if not os.path.exists(path): 
+                print("Image not found")
+                return
+        
+        image = self.resizeImage(PIL.Image.open(path))
+        image_tk = ImageTk.PhotoImage(image)
+        self.image_label.config(image=image_tk)
 
     # Function that allows to update main window with the option of two buttons and a description
     def scenarioWindow(self,scenario):
@@ -180,16 +186,19 @@ class StartGui(tk.Tk):
 
     # Function that allows to updates the window with the result of the scenario
     def scenarioOutput(self, mod):
+        
         self.text_label.config(text=mod.result)
+        self.button2.config(text="", command='')
+        self.button2.config(state="disabled")
         if mod.death == True:
             self.button1.config(text="GAME OVER", command=lambda: self.showDeathScreen())
         elif mod.sick:
             self.button1.config(text="Continue", command=lambda: self.scenarioManager.callScenarioByName('Sickness'))
-        else:
-            self.button1.config(text="Continue", command=lambda: self.checkpointManager.nextScenario())
-            
-        self.button2.config(text="", command='')
-        self.button2.config(state="disabled")
+        else:     
+            self.text_label.config(text=mod.result+"\n What do you want to do tomorrow?")       
+            self.button1.config(text="Travel", command=lambda: self.checkpointManager.nextScenario())            
+            self.button2.config(text="Hunt", command=lambda: self.scenarioManager.callScenarioByName('Hunt'))
+            self.button2.config(state="normal")
 
     def showTownCheckpoint(self,checkpoint):
         global image_tk
@@ -364,6 +373,13 @@ class StartGui(tk.Tk):
         # Convert the image to Tkinter-compatible format
         image_tk = ImageTk.PhotoImage(image)
         # Create a label to display the image
+
+        self.grid_rowconfigure(0, weight=4)  # 50% vertical space
+        self.grid_rowconfigure(1, weight=2)  # 20% vertical space
+        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+
+
         self.image_label = tk.Label(self, image=image_tk, bg=self.bg)
         self.image_label.grid(row=0, column=0, columnspan=2, sticky="nsew")
         #prompt text
@@ -376,16 +392,17 @@ class StartGui(tk.Tk):
         self.text_label.pack(fill="both", expand=True)
 
         #create the text entry field
-        textField = tk.Entry(self)
-        textField.grid(row=2, column=0, columnspan=2, sticky="nsew")
+        textField = tk.Entry(self, font=("Arial", 22), justify='center')
+        textField.grid(row=2, column=0, columnspan=1, sticky="nsew")
+        
 
         #create a button to confirm and buy the food
         purchaseButton = tk.Button(self,text="Purchase", bg=self.accentColor, command=lambda: purchaseFood(self,textField))
-        purchaseButton.grid(row=3, column=0, columnspan=2, sticky="nsew")
-        self.grid_rowconfigure(0, weight=4)  # 50% vertical space
-        self.grid_rowconfigure(1, weight=2)  # 20% vertical space
-        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
-        self.grid_rowconfigure(2, weight=2)  # 30% vertical space
+        self.styleButtons(purchaseButton, self.accentColor, self.bg)  
+        purchaseButton.grid(row=2, column=1, columnspan=1, sticky="nsew")
+
+        textField.focus()
+        
 def purchaseFood(self,textField):
     
     amount = int(textField.get())
