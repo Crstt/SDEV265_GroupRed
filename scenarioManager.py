@@ -19,7 +19,16 @@ class Scenario:
             self.distance = 0  # Traveled distance during the day
             self.money = 0  # No money spent
             self.death = False  # Did not die
+            self.sick = False  # Did not get sick
             self.result = ""  # Result of the day
+
+        def printMods(self):
+            print(f"Food: {self.food}")
+            print(f"Distance: {self.distance}")
+            print(f"Money: {self.money}")
+            print(f"Death: {self.death}")
+            print(f"Sick: {self.sick}")
+            print(f"Result: {self.result}")
 
 class ScenarioManager:
     #creates a player object that every scenario can refer to without needing to pass it to the constructor
@@ -82,7 +91,6 @@ class ScenarioManager:
     
     def loadFromCsv(self, csv_path):
         scenarios_values_dict = {}
-
         with open(csv_path, 'r') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
@@ -112,6 +120,8 @@ class ScenarioManager:
         self.gui.scenarioWindow(scenario)
     
     def guiCallScenario(self, scenario, choice = -1):
+
+        scenario.mod = Scenario.Modifiers()
         mod = scenario.run(choice)
         
         self.player.food += mod.food        
@@ -135,12 +145,14 @@ class ScenarioManager:
                 mod.result += f"\nYou ate and used {-ateFood} pounds of food. You now have {self.player.food} pounds of food left."
 
         self.gui.scenarioOutput(mod)
+        return mod
                   
     
     def callScenarioByName(self, scenarioName:str):
-
         if scenarioName in self.scenarios:
             return self.callScenario(self.scenarios[scenarioName])
         
         if scenarioName in self.specialScenarios:
             return self.callScenario(self.specialScenarios[scenarioName])
+        
+        print(f"Scenario {scenarioName} not found")

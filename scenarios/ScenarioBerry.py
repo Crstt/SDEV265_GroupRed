@@ -26,8 +26,4 @@ class ScenarioBerry(scenarioManager.Scenario):
             self.mod.result = "You decided not to eat the berries. "
             print("You've decided to not eat the berries you have found in the wild, you rely on the rations you have for now. ")
 
-        return self.mod 
-    
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here
+        return self.mod

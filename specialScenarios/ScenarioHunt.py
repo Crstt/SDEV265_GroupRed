@@ -10,15 +10,11 @@ class ScenarioHunt(scenarioManager.Scenario):
         print(self.description)
         
         if random.randint(1,100) <= self.player.huntAdjust:
-                huntFood = random.randint(5,15)                  
-                print(f"You successfully hunted a deer. You got {huntFood} pounds of meet")
+                huntFood = random.randint(5,15)                
+                self.mod.result = f"You successfully hunted a deer. You got {huntFood} pounds of meet"
                 self.mod.food += huntFood
                 
         else:
-            print("The deer escaped. You did not get any food")
+            self.mod.result = "The deer escaped. You did not get any food"
 
         return self.mod
-    
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here
