@@ -404,10 +404,19 @@ class StartGui(tk.Tk):
         textField.focus()
         
 def purchaseFood(self,textField):
-    
-    amount = int(textField.get())
-    if(self.player.money>=amount*self.checkpointManager.currentCheckpoint.foodCost):
-        self.player.food += amount
-        self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost
+    amount = 0
+    try:
+        amount = int(textField.get())
+        if(amount<0):
+            if(self.player.food >= abs(amount)):
+                #sell food
+                self.player.food += amount
+                self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost
+        elif(self.player.money>=amount*self.checkpointManager.currentCheckpoint.foodCost):
+        #buy food
+            self.player.food += amount
+            self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost
+    except:
+        amount =0
     self.showTownCheckpoint(self.checkpointManager.currentCheckpoint)
     
