@@ -7,6 +7,6 @@ Sickness,You are sick today. You cannot travel and need to rest 1 extra day,,
 Beggar,You came across a beggar on the side of the road. He asks you for 100$. Do you give it to him?,Yes,No
 Shortcut,You found a shortcut! It seems dangerous but could save time. Should we take it?,Yes,No
 Travelers,You met fellow travelers on your journey that shared food with you.,,
-FoundFood, You found edible dead pythons in your food supplies. You gained more food units.,,
+FoundFood, You found edible dead pythons in your food supplies. You decide to pythons to your rations.,,
 GoldNugget, You found a gold nugget in the stream. More money has been added to your cash.,,
 Python,Some of your food got eaten by pythons.,,
