@@ -9,18 +9,21 @@ class ScenarioBerry(scenarioManager.Scenario):
         print(f"Running scenario {self.name}...")
         print(self.description)
 
-        #choice = int(input("1 for forest or 2 for plains: "))
+        #choice 1 is to eat the berries, 2 is to not eat the berries. 
         if choice == 1:
-            if random.randint(1,100) <= self.player.huntAdjust:
-                self.mod.result = "You got lost. You did not travel much closer today."
-                #print("You got lost. You did not travel much closer today.")
+            
+            if random.randint(1,100)>= self.player.huntAdjust:
+                self.mod.result = "You decided to eat the berries. "
+                print("You got sick from the berries and vomitted. This costs you an extra day's of food rations")
             else:
-                self.mod.result = "You ran into a python in the wilderness, got bitten, and died"                
-                #print("You ran into a python in the wilderness, got bitten, and died")
-                self.mod.death = True #You died, game over.
+                self.mod.result = "You decided to collect the berries."
+                print("You collected the berries. Your food supply has been adjusted.")
+                self.mod.food += random.randint(10,25)
+
+            
         else:
             self.mod.distance = random.randint(16,32) #Travel fowrard 
-            self.mod.result = "Nothing happens today. You traveled one step closer to the next town and used one day's food ration."
-            #print("Nothing happens today. You traveled one step closer to the next town and used one day's food ration.")
+            self.mod.result = "You decided not to eat the berries. "
+            print("You've decided to not eat the berries you have found in the wild, you rely on the rations you have for now. ")
 
         return self.mod
