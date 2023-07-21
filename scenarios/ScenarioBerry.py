@@ -15,12 +15,10 @@ class ScenarioBerry(scenarioManager.Scenario):
                 self.mod.result = "You got sick from the berries and vomitted. This costs you an extra day's of food rations"
                 self.mod.food -= random.randint(3,5)
             else:
+                self.mod.food += random.randint(5,15)   
                 self.mod.result = f"You decided to collect the berries. You gained {self.mod.distance} pounds of food."
-                #print("You collected the berries. Your food supply has been adjusted.")
-                self.mod.food += random.randint(5,15)            
         else:
             self.mod.distance = random.randint(16,32) #Travel fowrard 
-            self.mod.result = "YYou've decided to not eat the berries you have found in the wild, you rely on the rations you have for now. "
-            #print("You've decided to not eat the berries you have found in the wild, you rely on the rations you have for now. ")
+            self.mod.result = "You've decided to not eat the berries you have found in the wild, you rely on the rations you have for now. "
 
         return self.mod

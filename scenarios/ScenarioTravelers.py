@@ -11,5 +11,5 @@ class ScenarioTravelers(scenarioManager.Scenario):
         
         self.mod.distance = random.randint(16,32)
         self.mod.food = random.randint(3, 15)
-        self.mod.result = f"The travvelers gave you {self.mod.food} pounds of food and you travveled {self.mod.distance} miles today"
+        self.mod.result = f"The travelers gave you {self.mod.food} pounds of food and you traveled {self.mod.distance} miles today"
         return self.mod 

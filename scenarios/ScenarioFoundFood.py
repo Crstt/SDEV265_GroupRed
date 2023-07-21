@@ -12,7 +12,3 @@ class ScenarioFoundFood(scenarioManager.Scenario):
         self.mod.food = random.randint(3, 5)
         self.mod.result = f"You found edible dead pythons in your food supplies. You gained {self.mod.food} pounds of food."
         return self.mod    
-    
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here
