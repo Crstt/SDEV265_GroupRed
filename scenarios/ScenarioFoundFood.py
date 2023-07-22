@@ -8,11 +8,9 @@ class ScenarioFoundFood(scenarioManager.Scenario):
     def run(self, choice):
         print(f"Running scenario {self.name}...")
         print(self.description)
+
+        self.mod.distance = random.randint(16,32) #Travel fowrard 
         
-        self.mod.distance = random.randint(3, 5)
-        self.mod.result = f"You found edible dead pythons in your food supplies. You gained {self.mod.distance} food units."
+        self.mod.food = random.randint(3, 5)
+        self.mod.result = f"You found edible dead pythons in your food supplies. You gained {self.mod.food} pounds of food."
         return self.mod    
-    
-    def openPopUp(self):
-        print("Opening popup...")
-        # Implement the logic to open a popup related to the scenario here

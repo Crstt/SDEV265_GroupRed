@@ -8,6 +8,9 @@ class ScenarioPython(scenarioManager.Scenario):
     def run(self, choice):
         print(f"Running scenario {self.name}...")
         print(self.description)
-        self.mod.result = "You lost some food to pythons."
-        self.mod.food -= random.randint(3,5)
+
+        self.mod.distance = random.randint(16,32) #Travel fowrard 
+        
+        self.mod.food -= random.randint(10,25)
+        self.mod.result = f"You lost some food to pythons. You lost {-self.mod.food} pounds of food."
         return self.mod 

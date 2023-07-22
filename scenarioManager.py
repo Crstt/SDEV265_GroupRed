@@ -132,16 +132,13 @@ class ScenarioManager:
         self.player.food += ateFood #the player always eats. Handaled by default by the manager
 
         
-        if mod.death:
-            print("END GAME") 
-            #TODO: finish developing the end game mechanic
-            #return mod
+        if self.player.food < 0:
+            #print("You ran out of food")
+            mod.result += "\nYou ran out of food and died."
+            mod.death = True
         else:
-            if self.player.food < 0:
-                print("You ran out of food")
-                mod.death = True
-            else:
-                print(f"You ate and used {-ateFood} pounds of food")
+            #print(f"You ate and used {-ateFood} pounds of food")
+            if not mod.death:
                 mod.result += f"\nYou ate and used {-ateFood} pounds of food. You now have {self.player.food} pounds of food left."
 
         self.gui.scenarioOutput(mod)

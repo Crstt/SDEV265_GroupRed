@@ -28,11 +28,52 @@ Welcome to the Oregon Trail game implemented in Python! This game puts you in th
 
 ## Getting Started
 
-To play the Oregon Trail game, follow these steps:
+**Installation**
+To play the game, you'll first need to install Python on your system. Here are the steps to install Python and download the source code:
 
-1. Clone the repository: `git clone https://github.com/Crstt/SDEV265_GroupRed.git`.
-2. Navigate to the game directory: `cd oregon-trail-python`.
-3. Run the game script: `python oregon_trail.py`.
+**Install Python:**
+Visit the official Python website at https://www.python.org/.
+Click on the "Downloads" tab and select the appropriate installer for your operating system (e.g., Windows, macOS, or Linux).
+Download the latest version of Python 3.x.x (where x represents the specific version).
+Run the installer and follow the instructions provided. Make sure to check the box that says "Add Python to PATH" during the installation process.
+
+**Clone the repository:**
+Open your preferred command-line interface (e.g., Command Prompt on Windows or Terminal on macOS/Linux).
+Navigate to the directory where you want to store the game's source code.
+Execute the following command to clone the repository:
+git clone https://github.com/Crstt/SDEV265_GroupRed.git
+
+**Access the game directory:**
+Change your current directory to the "oregon-trail-python" folder within the cloned repository:
+cd SDEV265_GroupRed/oregon-trail-python
+Install the dependency with the following command “pip install -r .\requirements.txt.”
+
+**Run the game script:**
+Launch the game by executing the following command:
+python oregon_trail.py
+If you don't have Git installed or prefer not to use it, you can still download the source code for the Oregon Trail game directly from the GitHub repository. Here's an alternative method to download the source code:
+Visit the Oregon Trail GitHub repository:
+Go to the following URL in your web browser: https://github.com/Crstt/SDEV265_GroupRed.
+Download the source code as a ZIP file:
+On the repository page, click on the green "Code" button.
+In the dropdown menu, click on "Download ZIP".
+This will download the entire repository as a ZIP file to your computer.
+
+**Extract the ZIP file:**
+Once the ZIP file is downloaded, locate it on your computer and extract its contents to a desired location.
+You can use a built-in ZIP extraction tool or a third-party software like 7-Zip or WinRAR.
+
+**Access the game directory:**
+Open the extracted folder that corresponds to the downloaded ZIP file.
+Within that folder, navigate to the "oregon-trail-python" directory.
+Install the dependency with the following command “pip install -r .\requirements.txt.”
+
+**Run the game script:**
+Open your preferred command-line interface (e.g., Command Prompt on Windows or Terminal on macOS/Linux).
+Change your current directory to the "oregon-trail-python" folder you located in the previous step.
+Execute the following command to start the game:
+'python oregon_trail.py'
+
 
 ## Requirements
 

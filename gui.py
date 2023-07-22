@@ -264,7 +264,7 @@ class StartGui(tk.Tk):
         text_section.grid(row=1, column=0, columnspan=2, sticky="nsew")
 
         # Create a label inside the text section to display the text
-        self.text_label = tk.Label(text_section, font=("Arial", 22), text="What is your background? Bankers have 2000$, Merchants 1500$, and Farmers 1000$.\nHowever, farmers are the most skilled at surviving off the land, and Bankers are the least skilled. ", fg="white", bg=self.bgSecondary)
+        self.text_label = tk.Label(text_section, font=("Arial", 22), text="What is your background? Bankers have 750$, Merchants 400$, and Farmers 250$.\nHowever, farmers are the most skilled at surviving off the land, and Bankers are the least skilled. ", fg="white", bg=self.bgSecondary)
         self.text_label.pack(fill="both", expand=True)
 
         #player choice selection   
@@ -411,11 +411,11 @@ def purchaseFood(self,textField):
             if(self.player.food >= abs(amount)):
                 #sell food
                 self.player.food += amount
-                self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost
+                self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost * ((100-self.player.buyAdjust)/100)
         elif(self.player.money>=amount*self.checkpointManager.currentCheckpoint.foodCost):
         #buy food
             self.player.food += amount
-            self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost
+            self.player.money -=amount*self.checkpointManager.currentCheckpoint.foodCost * ((100-self.player.buyAdjust)/100)
     except:
         amount =0
     self.showTownCheckpoint(self.checkpointManager.currentCheckpoint)

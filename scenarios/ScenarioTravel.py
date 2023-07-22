@@ -10,7 +10,7 @@ class ScenarioTravel(scenarioManager.Scenario):
         print(self.description)
         
         self.mod.distance = random.randint(16, 32)
-        #print(f"You traveled {self.mod.distance} miles today")
+        
         self.mod.result = f"You traveled {self.mod.distance} miles today"
         return self.mod    
     
