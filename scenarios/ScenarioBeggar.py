@@ -14,10 +14,11 @@ class ScenarioBeggar(scenarioManager.Scenario):
         print(f"Running scenario {self.name}...")
         print(self.description)
 
+        self.mod.distance = random.randint(16,32) #Travel fowrard 
+
         #choice = int(input("1 for forest or 2 for plains: "))
         if(self.player.money>=100):
-            if choice == 1:
-                self.mod.distance = random.randint(16,32) #Travel fowrard 
+            if choice == 1:                
                 self.mod.money=-100
                 self.mod.result = "You gave the beggar some money, and you continuted on your way."
                 #print("Nothing happens today. You traveled one step closer to the next town and used one day's food ration.")
@@ -30,7 +31,6 @@ class ScenarioBeggar(scenarioManager.Scenario):
                     #print("You ran into a python in the wilderness, got bitten, and died")
                     self.mod.death = True #You died, game over.
         else:
-            self.mod.distance = random.randint(16,32) #Travel fowrard 
             self.mod.food = 10
             self.mod.result = "Seeing that you have no money, they beggar gives you a little bit of food to help you on your way."
 

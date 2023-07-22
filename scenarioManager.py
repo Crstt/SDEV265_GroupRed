@@ -138,7 +138,8 @@ class ScenarioManager:
             mod.death = True
         else:
             #print(f"You ate and used {-ateFood} pounds of food")
-            mod.result += f"\nYou ate and used {-ateFood} pounds of food. You now have {self.player.food} pounds of food left."
+            if not mod.death:
+                mod.result += f"\nYou ate and used {-ateFood} pounds of food. You now have {self.player.food} pounds of food left."
 
         self.gui.scenarioOutput(mod)
         return mod
